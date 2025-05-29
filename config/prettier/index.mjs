@@ -13,6 +13,6 @@ const config = {
     arrowParens: 'always',
     endOfLine: 'auto',
     bracketSameLine: false
-};
+}
 
 export default config

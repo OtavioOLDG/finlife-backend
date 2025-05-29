@@ -4,10 +4,15 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./base": "./base.js",
+    "./library": "./library.js",
     "./next-js": "./next.js",
-    "./react-internal": "./react-internal.js"
+    "./node": "./node.js"
   },
+  "files": [
+    "library.js",
+    "next.js",
+    "node.js"
+  ],
   "devDependencies": {
     "@eslint/js": "^9.27.0",
     "@next/eslint-plugin-next": "^15.3.0",
@@ -22,5 +27,9 @@
     "typescript-eslint": "^8.32.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "@finlife/prettier": "workspace:*"
+  },
+  "prettier": "@finlife/prettier",
+  "eslintConfig": {
+    "extends": ["./library.js"]
   }
 }
