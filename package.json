@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "finlife",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -11,7 +11,9 @@
   "devDependencies": {
     "prettier": "^3.5.3",
     "turbo": "^2.5.3",
-    "typescript": "5.8.2"
+    "typescript": "5.8.2",
+    "@finlife/eslint-config": "workspace:*",
+    "@finlife/typescript-config": "workspace:*"
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {
