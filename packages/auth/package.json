@@ -1,0 +1,21 @@
+{
+    "name": "@finlife/auth",
+    "version": "0.0.0",
+    "private": true,
+    "main": "src/index.ts",
+    "types": "src/index.ts",
+    "devDependencies": {
+        "@finlife/eslint-config": "workspace:*",
+        "@finlife/prettier": "workspace:*",
+        "@finlife/typescript-config": "workspace:*"
+    },
+    "eslintConfig": {
+        "extends": [
+            "@finlife/eslint-config/library"
+        ]
+    },
+    "prettier": "@finlife/prettier",
+    "dependencies": {
+        "@casl/ability": "^6.7.3"
+    }
+}

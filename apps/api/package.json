@@ -1,0 +1,23 @@
+{
+    "name": "@finlife/api",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "tsx watch src/index.ts"
+    },
+    "dependencies": {
+        "@finlife/auth": "workspace:*"
+    },
+    "devDependencies": {
+        "@finlife/eslint-config": "workspace:*",
+        "@finlife/prettier": "workspace:*",
+        "@finlife/typescript-config": "workspace:*",
+        "@types/node": "^22.15.26",
+        "tsx": "^4.19.4"
+    },
+    "eslintConfig": {
+        "extends": [
+            "@finlife/eslint-config/node"
+        ]
+    },
+    "prettier": "@finlife/prettier"
+}
