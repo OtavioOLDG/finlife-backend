@@ -9,11 +9,11 @@ import type {
 } from '@casl/ability';
 import { permissions } from './permissions';
 import type { User } from './models/user';
-import { userSubject, type UserSubject } from './subjects/user';
-import { projectSubject, type ProjectSubject } from './subjects/project';
-import { organizationSubject, type OrganizationSubject } from './subjects/organization';
-import { inviteSubject, type InviteSubject } from './subjects/invite';
-import { z } from 'zod'
+import { userSubject } from './subjects/user';
+import { projectSubject } from './subjects/project';
+import { organizationSubject } from './subjects/organization';
+import { inviteSubject } from './subjects/invite';
+import { z } from 'zod';
 
 const appAbilitiesSchema = z.union([
   userSubject,
@@ -38,7 +38,11 @@ export function defineAbilityFor(user: User){
 
   permissions[user.role](user, builder)
 
-  const ability = builder.build()
+  const ability = builder.build({
+    detectSubjectType(subject){
+      return subject.__typename
+    }
+  })
 
   return ability
 }

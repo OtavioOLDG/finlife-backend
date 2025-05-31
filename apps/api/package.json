@@ -2,16 +2,21 @@
     "name": "@finlife/api",
     "version": "1.0.0",
     "scripts": {
-        "dev": "tsx watch src/index.ts"
+        "dev": "tsx watch src/http/server.ts"
     },
     "dependencies": {
-        "@finlife/auth": "workspace:*"
+        "@fastify/cors": "^11.0.1",
+        "@finlife/auth": "workspace:*",
+        "fastify": "^5.3.3",
+        "fastify-type-provider-zod": "^4.0.2",
+        "zod": "^3.25.42"
     },
     "devDependencies": {
         "@finlife/eslint-config": "workspace:*",
         "@finlife/prettier": "workspace:*",
         "@finlife/typescript-config": "workspace:*",
         "@types/node": "^22.15.26",
+        "prisma": "^6.8.2",
         "tsx": "^4.19.4"
     },
     "eslintConfig": {
