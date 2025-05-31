@@ -1,10 +1,10 @@
-import { ability } from '@finlife/auth'
+import { defineAbilityFor } from '@finlife/auth'
+
+const ability = defineAbilityFor({role : 'ADMIN'})
 
 const userCanInviteSomeoneElse = ability.can('invite', 'User')
 const userCanDeleteSomeoneElse = ability.can('delete', 'User')
 const userCannnotDeleteSomeoneElse = ability.cannot('delete', 'User')
-console.log(userCannnotDeleteSomeoneElse)
-console.log(userCanInviteSomeoneElse + "\n" + userCanDeleteSomeoneElse + "\n" + userCannnotDeleteSomeoneElse)
-console.log(userCannnotDeleteSomeoneElse)
-console.log(userCannnotDeleteSomeoneElse)
+console.log(userCanInviteSomeoneElse)
+console.log(userCanDeleteSomeoneElse)
 console.log(userCannnotDeleteSomeoneElse)
