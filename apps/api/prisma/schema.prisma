@@ -251,7 +251,7 @@ model usuario_info {
   endereco                                                                                 String
   email                                                                                    String                     @unique
   senha                                                                                    String
-  dthr_cadastro                                                                            DateTime                   @db.Timestamp(6)
+  dthr_cadastro                                                                            DateTime                   @default(now()) @db.Timestamp(6)
   id_ativo                                                                                 Boolean
   id_info_ativo                                                                            Boolean
   id_usuario                                                                               Int
