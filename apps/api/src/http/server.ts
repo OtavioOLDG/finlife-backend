@@ -22,7 +22,15 @@ app.register(fastifySwagger, {
       description: 'Backend service',
       version: '1.0.0',
     },
-    servers: [],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      }
+    }
   },
   transform: jsonSchemaTransform,
 
