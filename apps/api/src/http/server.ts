@@ -8,6 +8,7 @@ import { createAccount } from "./routes/users/create-account";
 import { loginAccount } from "./routes/users/login-account";
 import { getProfile } from "./routes/users/get-user";
 import { errorHandler } from "./error-handler";
+import { env } from '@finlife/env'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -34,7 +35,7 @@ app.register(fastifySwaggerUi, {
 })
 app.register(fastifyCors)
 app.register(fastifyJwt, {
-    secret : 'Xuxu ao molho branco'
+    secret : env.JWT_SECRET
 })
 
 // rotas usuários
@@ -42,6 +43,6 @@ app.register(createAccount)
 app.register(loginAccount)
 app.register(getProfile)
 
-app.listen({port:3333}).then(() => {
+app.listen({port: parseInt(env.SERVER_PORT)}).then(() => {
     console.log('HTTP Server is running')
 })

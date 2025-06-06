@@ -2,7 +2,10 @@
     "name": "@finlife/api",
     "version": "1.0.0",
     "scripts": {
-        "dev": "tsx watch src/http/server.ts"
+        "dev": "pnpm env:load tsx watch src/http/server.ts",
+        "env:load": "dotenv -e ../../.env --",
+        "db:migrate": "pnpm env:load prisma migrate dev",
+        "db:studio": "pnpm env:load prisma studio"
     },
     "dependencies": {
         "@fastify/cors": "^11.0.1",
@@ -18,10 +21,12 @@
         "zod": "^3.25.42"
     },
     "devDependencies": {
+        "@finlife/env": "workspace:*",
         "@finlife/eslint-config": "workspace:*",
         "@finlife/prettier": "workspace:*",
         "@finlife/typescript-config": "workspace:*",
         "@types/node": "^22.15.26",
+        "dotenv-cli": "^8.0.0",
         "prisma": "^6.8.2",
         "tsx": "^4.19.4"
     },

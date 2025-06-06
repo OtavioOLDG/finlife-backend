@@ -1,0 +1,23 @@
+{
+    "name": "@finlife/env",
+    "version": "0.0.0",
+    "private": true,
+    "main": "index.ts",
+    "types": "index.ts",
+    "devDependencies": {
+        "@finlife/eslint-config": "workspace:*",
+        "@finlife/prettier": "workspace:*",
+        "@finlife/typescript-config": "workspace:*",
+        "@types/node": "^22.15.26"
+    },
+    "eslintConfig": {
+        "extends": [
+            "@finlife/eslint-config/library"
+        ]
+    },
+    "prettier": "@finlife/prettier",
+    "dependencies": {
+        "@t3-oss/env-nextjs": "^0.13.6",
+        "zod": "^3.25.42"
+    }
+}
