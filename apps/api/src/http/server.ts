@@ -11,6 +11,7 @@ import { errorHandler } from "./error-handler";
 import { env } from '@finlife/env'
 import { createEntradaCategoria } from "./routes/entrada-categoria/create-entrada-categoria";
 import { pegarToken } from "./routes/desenvolvimento/pegar-token";
+import { createSaidaPrioridade } from "./routes/saida-prioridade/create-saida-prioridade";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -58,6 +59,8 @@ app.register(getProfile)
 
 // rotas entrada categoria
 app.register(createEntradaCategoria)
+
+app.register(createSaidaPrioridade)
 
 app.listen({port: parseInt(env.SERVER_PORT)}).then(() => {
     console.log('HTTP Server is running')
