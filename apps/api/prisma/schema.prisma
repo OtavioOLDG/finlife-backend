@@ -43,7 +43,7 @@ model entrada_info {
   id_patrimonio_info                                               Int?
   comprovante                                                      Int?                   @db.Oid
   entrada_categoria                                                entrada_categoria      @relation(fields: [id_entrada_categoria], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  entrada                                                          entrada                @relation(fields: [id_entrada], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  entrada                                                          entrada                @relation(fields: [id_entrada], references: [id], onDelete: Cascade, onUpdate: NoAction)
   pagamento_entrada_tipo                                           pagamento_entrada_tipo @relation(fields: [id_pagamento_entrada_tipo], references: [id], onDelete: NoAction, onUpdate: NoAction)
   usuario_info_entrada_info_id_usuario_info_cadastroTousuario_info usuario_info           @relation("entrada_info_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
   usuario_info_entrada_info_id_usuario_infoTousuario_info          usuario_info           @relation("entrada_info_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -76,7 +76,7 @@ model grupo_financeiro_cargo {
   id_ativo                 Boolean
   id_usuario_info_cadastro Int
   dthr_cadastro            DateTime                   @db.Timestamp(6)
-  usuario_info             usuario_info               @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario_info             usuario_info               @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: NoAction)
   grupo_financeiro_usuario grupo_financeiro_usuario[]
 }
 
@@ -150,7 +150,7 @@ model patrimonio_info {
   id_usuario_info_cadastro Int
   id_patrimonio            Int
   valor_mercado            Decimal                  @db.Decimal(15, 2)
-  patrimonio               patrimonio               @relation(fields: [id_patrimonio], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  patrimonio               patrimonio               @relation(fields: [id_patrimonio], references: [id], onDelete: Cascade, onUpdate: NoAction)
   usuario_info             usuario_info             @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
   patrimonio_info_imagem   patrimonio_info_imagem[]
 
@@ -217,7 +217,7 @@ model saida_info {
   notificacao                                                    notificacao[]
   pagamento_saida_tipo                                           pagamento_saida_tipo @relation(fields: [id_pagamento_saida_tipo], references: [id], onDelete: NoAction, onUpdate: NoAction)
   saida_categoria                                                saida_categoria      @relation(fields: [id_saida_categoria], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  saida                                                          saida                @relation(fields: [id_saida], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  saida                                                          saida                @relation(fields: [id_saida], references: [id], onDelete: Cascade, onUpdate: NoAction)
   saida_prioridade                                               saida_prioridade     @relation(fields: [id_saida_prioridade], references: [id], onDelete: NoAction, onUpdate: NoAction)
   usuario_info_saida_info_id_usuario_info_cadastroTousuario_info usuario_info         @relation("saida_info_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
   usuario_info_saida_info_id_usuario_infoTousuario_info          usuario_info         @relation("saida_info_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -272,7 +272,7 @@ model usuario_info {
   saida_info_saida_info_id_usuario_info_cadastroTousuario_info                             saida_info[]               @relation("saida_info_id_usuario_info_cadastroTousuario_info")
   saida_info_saida_info_id_usuario_infoTousuario_info                                      saida_info[]               @relation("saida_info_id_usuario_infoTousuario_info")
   saida_prioridade                                                                         saida_prioridade[]
-  usuario                                                                                  usuario                    @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario                                                                                  usuario                    @relation(fields: [id_usuario], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@index([id_usuario], map: "idx_usuario_info_usuario")
 }
