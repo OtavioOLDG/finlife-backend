@@ -80,10 +80,17 @@ model grupo_financeiro_cargo {
   grupo_financeiro_usuario grupo_financeiro_usuario[]
 }
 
+enum Role {
+  ADMIN
+  MEMBRO
+  CONVIDADO
+}
+
 model grupo_financeiro_usuario {
   id                                                                           Int                    @id @default(autoincrement())
   id_ativo                                                                     Boolean
   dthr_cadastro                                                                DateTime               @db.Timestamp(6)
+  role                                                                         Role
   id_usuario_info_cadastro                                                     Int
   id_usuario_info                                                              Int
   id_grupo_financeiro_cargo                                                    Int
@@ -93,6 +100,7 @@ model grupo_financeiro_usuario {
   usuario_info_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info usuario_info           @relation("grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
   usuario_info_grupo_financeiro_usuario_id_usuario_infoTousuario_info          usuario_info           @relation("grupo_financeiro_usuario_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
+  @@index([role])
   @@index([id_usuario_info_cadastro], map: "idx_gf_usuario_cadastro")
   @@index([id_usuario_info], map: "idx_gf_usuario_info")
 }

@@ -23,5 +23,7 @@ export const errorHandler: FastityErrorHandler = (error, request, reply) => {
         })
     }
 
+    console.log(error.message)
+
     return reply.status(500).send({message: 'Erro interno'})
 }

@@ -12,6 +12,7 @@ import { env } from '@finlife/env'
 import { createEntradaCategoria } from "./routes/entrada-categoria/create-entrada-categoria";
 import { pegarToken } from "./routes/desenvolvimento/pegar-token";
 import { createSaidaPrioridade } from "./routes/saida-prioridade/create-saida-prioridade";
+import { pegarCargo } from "./routes/desenvolvimento/pegar-cargo";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -51,6 +52,7 @@ app.register(fastifyJwt, {
 
 // rotas desenvolvimento
 app.register(pegarToken)
+app.register(pegarCargo)
 
 // rotas usuários
 app.register(createAccount)
