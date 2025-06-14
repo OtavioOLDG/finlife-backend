@@ -241,7 +241,6 @@ model usuario {
   cpf             String         @unique
   dthr_nascimento DateTime       @db.Date
   usuario_info    usuario_info[]
-  convite         convite[]
 }
 
 model usuario_info {
@@ -270,6 +269,7 @@ model usuario_info {
   saida_info_saida_info_id_usuario_infoTousuario_info                                      saida_info[]               @relation("saida_info_id_usuario_infoTousuario_info")
   saida_prioridade                                                                         saida_prioridade[]
   usuario                                                                                  usuario                    @relation(fields: [id_usuario], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  convite                                                                                  convite[]
 
   @@index([id_usuario], map: "idx_usuario_info_usuario")
 }
@@ -282,6 +282,6 @@ model convite {
   grupoFinanceiroId          Int  @map("grupo_financiero_id")
 
   grupoId  grupo_financeiro         @relation(fields: [grupoFinanceiroId], references: [id])
-  usuario  usuario                  @relation(fields: [usuarioDestinoId], references: [id])
+  usuario  usuario_info             @relation(fields: [usuarioDestinoId], references: [id])
   membroId grupo_financeiro_usuario @relation(fields: [grupo_financeiro_usuarioId], references: [id])
 }

@@ -8,14 +8,11 @@ type PermissionsByRole = (user: User, builder: AbilityBuilder<AppAbility>) => vo
 export const permissions: Record<Role, PermissionsByRole> = {
     ADMIN(_, { can, cannot }) {
         can('manage', 'all')
-        cannot('delete', 'Invite')
     },
     MEMBRO(_, { can, cannot}) {
-        can('manage', 'all')
-        cannot('delete', 'Invite')
+        can('get', 'Convite')
     },
     CONVIDADO(_, { can , cannot}){
-        can("manage", 'all')
-        cannot('delete', 'Invite')
+        can('get', 'Convite')
     }
 }

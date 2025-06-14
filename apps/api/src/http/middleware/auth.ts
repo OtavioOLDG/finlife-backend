@@ -24,32 +24,29 @@ export const auth = fastifyPlugin(async(app: FastifyInstance) => {
         }
 
         request.getMembership = async (orgId: number) => {
-            try{
-                const userId = await request.getCurrentUserId()
-                const membership = await prisma.grupo_financeiro_usuario.findFirst({
-                    select: {
-                        id_grupo_financeiro_cargo: true
-                    },
-                    where: {
-                        id_grupo_financeiro: orgId,
-                        id_usuario_info: userId
-                    }
-                })
+            const userId = await request.getCurrentUserId()
 
-                const cargo = await prisma.grupo_financeiro_cargo.findUnique({
-                    where: {
-                        id: membership?.id_grupo_financeiro_cargo
+            const grupoFinanceiroUsuarioEncontrado = await prisma.grupo_financeiro_usuario.findFirst({
+                where: {
+                    id_usuario_info: userId,
+                    grupo_financeiro: {
+                        id: orgId
                     }
-                })
-
-                if(cargo?.id_admin === true){
-                    return Cargos.ADMIN
+                },
+                include: {
+                    grupo_financeiro: true
                 }
+            })
 
+            if(!grupoFinanceiroUsuarioEncontrado){
+                throw new BadRequestError('Você não faz parte desta organização')
+            }
 
-                return Cargos.MEMBRO
-            } catch (err){
-                throw new BadRequestError('Erro de autenticação de filiação')
+            const {grupo_financeiro: grupoFinanceiro, ...grupoFinanceiroUsuario} = grupoFinanceiroUsuarioEncontrado
+
+            return {
+                grupoFinanceiroUsuario,
+                grupoFinanceiro
             }
         }
     })
