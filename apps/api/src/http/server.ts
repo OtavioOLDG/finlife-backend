@@ -59,6 +59,9 @@ app.register(pegarCargo)
 // rotas convites
 app.register(createConvite)
 
+// rotas entrada categoria
+app.register(createEntradaCategoria)
+
 //rotas grupo financeiro
 app.register(createGrupoFinanceiro)
 
@@ -66,9 +69,6 @@ app.register(createGrupoFinanceiro)
 app.register(createAccount)
 app.register(loginAccount)
 app.register(getProfile)
-
-// rotas entrada categoria
-app.register(createEntradaCategoria)
 
 app.register(createSaidaPrioridade)
 

@@ -25,7 +25,7 @@ export async function createAccount(app: FastifyInstance){
 
                     endereco: z.string(),
                     email: z.string().email(),
-                    senha: z.string().min(6),
+                    senha: z.string(),
                 }),
                 response: {
                     201: z.object({
@@ -59,6 +59,10 @@ export async function createAccount(app: FastifyInstance){
             
 
             const {cpf,dthr_nascimento,email,endereco,nome,senha,sobrenome} = request.body
+
+            if(senha.length < 6 ){
+                throw new BadRequestError('Senha muito curta')
+            }
 
             const userWithSameEmail = await prisma.usuario_info.findFirst({
                 where: {
