@@ -60,7 +60,8 @@ export async function createConvite(app: FastifyInstance){
             const conviteAchado = await prisma.convite.findFirst({
                 where: {
                     grupoFinanceiroId: grupoFinanceiro.id,
-                    usuarioDestinoId: usuarioDestinoId
+                    usuarioDestinoId: usuarioDestinoId,
+                    pendente: true
                 }
             })
 
@@ -73,7 +74,9 @@ export async function createConvite(app: FastifyInstance){
                     cargo: roleSchema.parse(cargo),
                     grupo_financeiro_usuarioId: grupoFinanceiroUsuario.id,  // o id da tabela grupo_financeiro_usuario  
                     usuarioDestinoId: usuarioDestinoId,      // o id da tabela usuario_info
-                    grupoFinanceiroId: grupoFinanceiro.id,    
+                    grupoFinanceiroId: grupoFinanceiro.id,
+                    pendente: true,
+                    recusado: true,
                 }
             })
 

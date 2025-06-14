@@ -275,11 +275,13 @@ model usuario_info {
 }
 
 model convite {
-  id                         Int  @id @default(autoincrement())
+  id                         Int     @id @default(autoincrement())
   cargo                      Role
   grupo_financeiro_usuarioId Int
-  usuarioDestinoId           Int  @map("usuario_destino_id")
-  grupoFinanceiroId          Int  @map("grupo_financiero_id")
+  recusado                   Boolean @default(true)
+  pendente                   Boolean @default(true)
+  usuarioDestinoId           Int     @map("usuario_destino_id")
+  grupoFinanceiroId          Int     @map("grupo_financiero_id")
 
   grupoId  grupo_financeiro         @relation(fields: [grupoFinanceiroId], references: [id])
   usuario  usuario_info             @relation(fields: [usuarioDestinoId], references: [id])
