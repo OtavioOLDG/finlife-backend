@@ -15,6 +15,7 @@ import { createSaidaPrioridade } from "./routes/saida-prioridade/create-saida-pr
 import { pegarCargo } from "./routes/desenvolvimento/pegar-cargo";
 import { createGrupoFinanceiro } from "./routes/grupo-financeiro/create-grupo-financeiro";
 import { createConvite } from "./routes/convites/createConvite";
+import { updateUser } from "./routes/users/update-user";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -69,6 +70,7 @@ app.register(createGrupoFinanceiro)
 app.register(createAccount)
 app.register(loginAccount)
 app.register(getProfile)
+app.register(updateUser)
 
 app.register(createSaidaPrioridade)
 
