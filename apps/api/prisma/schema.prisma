@@ -69,17 +69,6 @@ model grupo_financeiro {
   @@index([id_usuario_info_cadastro], map: "idx_grupo_financeiro_usuario")
 }
 
-model grupo_financeiro_cargo {
-  id                       Int                        @id @default(autoincrement())
-  nome                     String
-  id_admin                 Boolean
-  id_ativo                 Boolean
-  id_usuario_info_cadastro Int
-  dthr_cadastro            DateTime                   @db.Timestamp(6)
-  usuario_info             usuario_info               @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  grupo_financeiro_usuario grupo_financeiro_usuario[]
-}
-
 enum Role {
   ADMIN
   MEMBRO
@@ -87,18 +76,16 @@ enum Role {
 }
 
 model grupo_financeiro_usuario {
-  id                                                                           Int                    @id @default(autoincrement())
+  id                                                                           Int              @id @default(autoincrement())
   id_ativo                                                                     Boolean
-  dthr_cadastro                                                                DateTime               @db.Timestamp(6)
+  dthr_cadastro                                                                DateTime         @db.Timestamp(6)
   role                                                                         Role
   id_usuario_info_cadastro                                                     Int
   id_usuario_info                                                              Int
-  id_grupo_financeiro_cargo                                                    Int
   id_grupo_financeiro                                                          Int
-  grupo_financeiro_cargo                                                       grupo_financeiro_cargo @relation(fields: [id_grupo_financeiro_cargo], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  grupo_financeiro                                                             grupo_financeiro       @relation(fields: [id_grupo_financeiro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info usuario_info           @relation("grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info_grupo_financeiro_usuario_id_usuario_infoTousuario_info          usuario_info           @relation("grupo_financeiro_usuario_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  grupo_financeiro                                                             grupo_financeiro @relation(fields: [id_grupo_financeiro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario_info_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info usuario_info     @relation("grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario_info_grupo_financeiro_usuario_id_usuario_infoTousuario_info          usuario_info     @relation("grupo_financeiro_usuario_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([role])
   @@index([id_usuario_info_cadastro], map: "idx_gf_usuario_cadastro")
@@ -267,7 +254,6 @@ model usuario_info {
   entrada_info_entrada_info_id_usuario_info_cadastroTousuario_info                         entrada_info[]             @relation("entrada_info_id_usuario_info_cadastroTousuario_info")
   entrada_info_entrada_info_id_usuario_infoTousuario_info                                  entrada_info[]             @relation("entrada_info_id_usuario_infoTousuario_info")
   grupo_financeiro                                                                         grupo_financeiro[]
-  grupo_financeiro_cargo                                                                   grupo_financeiro_cargo[]
   grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info grupo_financeiro_usuario[] @relation("grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info")
   grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_infoTousuario_info          grupo_financeiro_usuario[] @relation("grupo_financeiro_usuario_id_usuario_infoTousuario_info")
   notificacao                                                                              notificacao[]

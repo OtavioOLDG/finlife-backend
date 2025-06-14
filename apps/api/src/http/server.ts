@@ -13,6 +13,7 @@ import { createEntradaCategoria } from "./routes/entrada-categoria/create-entrad
 import { pegarToken } from "./routes/desenvolvimento/pegar-token";
 import { createSaidaPrioridade } from "./routes/saida-prioridade/create-saida-prioridade";
 import { pegarCargo } from "./routes/desenvolvimento/pegar-cargo";
+import { createGrupoFinanceiro } from "./routes/grupo-financeiro/create-grupo-financeiro";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -53,6 +54,9 @@ app.register(fastifyJwt, {
 // rotas desenvolvimento
 app.register(pegarToken)
 app.register(pegarCargo)
+
+//rotas grupo financeiro
+app.register(createGrupoFinanceiro)
 
 // rotas usuários
 app.register(createAccount)
