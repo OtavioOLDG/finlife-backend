@@ -37,9 +37,11 @@ export async function createInviteEmail(app: FastifyInstance){
             const userId = await request.getCurrentUserId()
             const {cargo, usuarioDestinoEmail} = request.body
 
-            const usuarioDestino = await prisma.usuario_info.findUnique({
+            const usuarioDestino = await prisma.usuario_info.findFirst({
                 where:{
-                    email: usuarioDestinoEmail
+                    email: usuarioDestinoEmail,
+                    id_ativo: true,
+                    id_info_ativo:true
                 }
             })
 
