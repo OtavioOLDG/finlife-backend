@@ -68,6 +68,17 @@ export async function createConvite(app: FastifyInstance){
             if(conviteAchado){
                 throw new BadRequestError('Convite já enviado para esta pessoa')
             }
+
+            const memboJaExistente = await prisma.grupo_financeiro_usuario.findFirst({
+                where: {
+                    id_usuario_info: usuarioDestinoId,
+                    id_grupo_financeiro: grupoFinanceiro.id
+                }
+            })
+
+            if(memboJaExistente){
+                throw new BadRequestError('O usuário já faz parte da organização')
+            }
             
             const conviteCriado = await prisma.convite.create({
                 data: {

@@ -16,6 +16,8 @@ import { pegarCargo } from "./routes/desenvolvimento/pegar-cargo";
 import { createGrupoFinanceiro } from "./routes/grupo-financeiro/create-grupo-financeiro";
 import { createConvite } from "./routes/convites/createConvite";
 import { updateUser } from "./routes/users/update-user";
+import { getAllUserInvites } from "./routes/convites/get-user-invites";
+import { acceptInvite } from "./routes/convites/accept-invite";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -59,6 +61,8 @@ app.register(pegarCargo)
 
 // rotas convites
 app.register(createConvite)
+app.register(getAllUserInvites)
+app.register(acceptInvite)
 
 // rotas entrada categoria
 app.register(createEntradaCategoria)

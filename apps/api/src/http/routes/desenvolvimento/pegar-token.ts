@@ -23,7 +23,7 @@ export async function pegarToken(app: FastifyInstance){
         },
         async(request, reply) => {
             const token = await reply.jwtSign({
-                sub: 1
+                sub: 3
             }, {
                 sign : {
                     expiresIn: '10m'
