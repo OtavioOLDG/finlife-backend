@@ -25,6 +25,7 @@ export async function getProfile(app: FastifyInstance){
                         userInfo: z.object({
                             id: z.number(),
                             email: z.string(),
+                            endereco: z.string()
                         }).nullable()
                     }),
                 }
@@ -42,7 +43,7 @@ export async function getProfile(app: FastifyInstance){
                         id_usuario: true,
                         endereco: true,
                         notificacao: true,
-                        grupo_financeiro: true
+                        grupo_financeiro: true,
                     },
                     where : {
                         id: userId

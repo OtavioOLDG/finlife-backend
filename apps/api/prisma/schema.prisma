@@ -246,7 +246,7 @@ model usuario {
 model usuario_info {
   id                                                                                       Int                        @id @default(autoincrement())
   endereco                                                                                 String
-  email                                                                                    String                     @unique
+  email                                                                                    String
   senha                                                                                    String
   dthr_cadastro                                                                            DateTime                   @default(now()) @db.Timestamp(6)
   id_ativo                                                                                 Boolean

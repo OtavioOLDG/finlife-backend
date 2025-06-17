@@ -86,7 +86,7 @@ export async function updateUser(app: FastifyInstance){
                 }
             })
 
-            if(userWithSameEmail){
+            if(userWithSameEmail && email !== userFromId.email){
                 throw new BadRequestError('Usuário já cadastrado com o mesmo e-mail')
             }
 
@@ -113,7 +113,7 @@ export async function updateUser(app: FastifyInstance){
                 const createdUserInfo = await tx.usuario_info.create({
                     data: {
                         endereco: userFromId.endereco,
-                        email: 'replace@test.com',
+                        email: userFromId.email,
                         senha: userFromId.senha,
                         id_usuario: userFromId.id_usuario,
                         id_ativo: false,
@@ -141,16 +141,16 @@ export async function updateUser(app: FastifyInstance){
                 })
 
 
-                // if(updatedUserInfo.email !== emailReserva){
-                //     await prisma.usuario_info.update({
-                //         where: {
-                //             id: createdUserInfo.id
-                //         },
-                //         data :{
-                //             email: emailReserva
-                //         }
-                //     })
-                // }
+                if(updatedUserInfo.email !== emailReserva){
+                    await prisma.usuario_info.update({
+                        where: {
+                            id: createdUserInfo.id
+                        },
+                        data :{
+                            email: emailReserva
+                        }
+                    })
+                }
 
 
                 return { updatedUser, updatedUserInfo };
