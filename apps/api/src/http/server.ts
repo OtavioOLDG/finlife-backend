@@ -18,6 +18,8 @@ import { createConvite } from "./routes/convites/createConvite";
 import { updateUser } from "./routes/users/update-user";
 import { getAllUserInvites } from "./routes/convites/get-user-invites";
 import { acceptInvite } from "./routes/convites/accept-invite";
+import { declineInvite } from "./routes/convites/decline-invite";
+import { createInviteEmail } from "./routes/convites/createInviteEmail";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -63,6 +65,8 @@ app.register(pegarCargo)
 app.register(createConvite)
 app.register(getAllUserInvites)
 app.register(acceptInvite)
+app.register(declineInvite)
+app.register(createInviteEmail)
 
 // rotas entrada categoria
 app.register(createEntradaCategoria)
