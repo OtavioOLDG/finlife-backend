@@ -1,11 +1,8 @@
 
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
-import {z} from 'zod'
-import { email } from 'zod/v4'
+import { z } from 'zod'
 import { prisma } from '../../../lib/prisma'
-import { timeStamp } from 'console'
-import { equal } from 'assert'
 import { compare, hash } from 'bcryptjs'
 import { BadRequestError } from '../_errors/bad-request-error'
 import { auth } from '../../middleware/auth'

@@ -1,14 +1,12 @@
 
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
-import {z} from 'zod'
+import { z } from 'zod'
 import { auth } from '../../middleware/auth'
 import { prisma } from '../../../lib/prisma'
-import { defineAbilityFor, roleSchema } from '@finlife/auth'
+import { roleSchema } from '@finlife/auth'
 import { BadRequestError } from '../_errors/bad-request-error'
 import { Role } from '../../../generated/prisma'
-import { userSchema } from '@finlife/auth/src/models/user'
-import { id } from 'zod/v4/locales'
 
 export async function pegarCargo(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).post('/dev/cargo', {

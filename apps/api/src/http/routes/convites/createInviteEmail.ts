@@ -5,11 +5,8 @@ import { z } from 'zod'
 import { prisma } from '../../../lib/prisma'
 import { BadRequestError } from '../_errors/bad-request-error'
 import { auth } from '../../middleware/auth'
-import type { userInfo } from 'os'
 import { defineAbilityFor, roleSchema } from '@finlife/auth'
-import { Role } from '../../../generated/prisma'
 import { userSchema } from '@finlife/auth/src/models/user'
-import { id } from 'zod/v4/locales'
 
 export async function createInviteEmail(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).post('/grupo-financeiro/:idGrupo/convite-por-email', {

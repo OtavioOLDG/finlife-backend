@@ -5,7 +5,6 @@ import { z } from 'zod'
 import { prisma } from '../../../lib/prisma'
 import { BadRequestError } from '../_errors/bad-request-error'
 import { auth } from '../../middleware/auth'
-import type { userInfo } from 'os'
 import { roleSchema } from '@finlife/auth'
 
 export async function createGrupoFinanceiro(app: FastifyInstance){

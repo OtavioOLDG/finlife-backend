@@ -5,11 +5,7 @@ import { z } from 'zod'
 import { prisma } from '../../../lib/prisma'
 import { BadRequestError } from '../_errors/bad-request-error'
 import { auth } from '../../middleware/auth'
-import type { userInfo } from 'os'
-import { defineAbilityFor, roleSchema } from '@finlife/auth'
-import { Role } from '../../../generated/prisma'
-import { userSchema } from '@finlife/auth/src/models/user'
-import { id } from 'zod/v4/locales'
+import { roleSchema } from '@finlife/auth'
 
 export async function getAllUserInvites(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).get('/usuario/convites', {

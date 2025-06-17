@@ -1,10 +1,8 @@
 import type { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { request } from "http";
 import { z } from "zod";
 import { auth } from "../../middleware/auth";
 import { prisma } from "../../../lib/prisma";
-import { equal } from "assert";
 import { BadRequestError } from "../_errors/bad-request-error";
 
 export async function createEntradaCategoria(app: FastifyInstance) {
