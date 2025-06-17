@@ -28,7 +28,7 @@ export async function pegarCargo(app: FastifyInstance){
 
             const membroEmOrganizacoes = await prisma.grupo_financeiro_usuario.findMany({
                 where: {
-                    id: userId
+                    id_usuario_info: userId
                 }
             })
 
