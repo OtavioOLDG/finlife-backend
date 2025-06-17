@@ -20,6 +20,7 @@ import { getAllUserInvites } from "./routes/convites/get-user-invites";
 import { acceptInvite } from "./routes/convites/accept-invite";
 import { declineInvite } from "./routes/convites/decline-invite";
 import { createInviteEmail } from "./routes/convites/createInviteEmail";
+import { getRoleOrg } from "./routes/cargos/get-role-org";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -60,6 +61,9 @@ app.register(fastifyJwt, {
 // rotas desenvolvimento
 app.register(pegarToken)
 app.register(pegarCargo)
+
+// rotas cargos
+app.register(getRoleOrg)
 
 // rotas convites
 app.register(createConvite)

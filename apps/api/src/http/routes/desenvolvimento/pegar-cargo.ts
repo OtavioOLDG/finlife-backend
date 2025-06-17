@@ -9,7 +9,7 @@ import { BadRequestError } from '../_errors/bad-request-error'
 import { Role } from '../../../generated/prisma'
 
 export async function pegarCargo(app: FastifyInstance){
-    app.withTypeProvider<ZodTypeProvider>().register(auth).post('/dev/cargo', {
+    app.withTypeProvider<ZodTypeProvider>().register(auth).get('/dev/cargo', {
             schema:{
                 tags: ['Desenvolvimento'],
                 summary: 'Pegar Cargo',
