@@ -12,7 +12,7 @@ export async function pegarCargo(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).post('/dev/cargo', {
             schema:{
                 tags: ['Desenvolvimento'],
-                summary: 'Pegar token',
+                summary: 'Pegar Cargo',
                 security: [{bearerAuth: []}],
                 response: {
                     201: z.object({
