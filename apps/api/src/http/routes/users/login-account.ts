@@ -26,8 +26,14 @@ export async function loginAccount(app: FastifyInstance){
             const {email, senha } = request.body
 
             const userFromEmail = await prisma.usuario_info.findFirst({
-                where: { email }
+                where: { 
+                    email,
+                    id_ativo: true,
+                    id_info_ativo:true
+                 }
             })
+
+            console.log(userFromEmail)
 
             if(!userFromEmail){
                 throw new BadRequestError('Credenciais inválidas')

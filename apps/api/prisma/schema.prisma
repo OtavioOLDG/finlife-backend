@@ -22,8 +22,8 @@ model entrada_categoria {
   id_ativo                 Boolean
   id_grupo_financeiro      Int?
   id_patrimonial           Boolean
-  grupo_financeiro         grupo_financeiro? @relation(fields: [id_grupo_financeiro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info             usuario_info      @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  grupo_financeiro         grupo_financeiro? @relation(fields: [id_grupo_financeiro], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info             usuario_info      @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
   entrada_info             entrada_info[]
 }
 
@@ -42,11 +42,11 @@ model entrada_info {
   valor                                                            Decimal                @db.Decimal(15, 2)
   id_patrimonio_info                                               Int?
   comprovante                                                      Int?                   @db.Oid
-  entrada_categoria                                                entrada_categoria      @relation(fields: [id_entrada_categoria], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  entrada                                                          entrada                @relation(fields: [id_entrada], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  pagamento_entrada_tipo                                           pagamento_entrada_tipo @relation(fields: [id_pagamento_entrada_tipo], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info_entrada_info_id_usuario_info_cadastroTousuario_info usuario_info           @relation("entrada_info_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info_entrada_info_id_usuario_infoTousuario_info          usuario_info           @relation("entrada_info_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  entrada_categoria                                                entrada_categoria      @relation(fields: [id_entrada_categoria], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  entrada                                                          entrada                @relation(fields: [id_entrada], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  pagamento_entrada_tipo                                           pagamento_entrada_tipo @relation(fields: [id_pagamento_entrada_tipo], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info_entrada_info_id_usuario_info_cadastroTousuario_info usuario_info           @relation("entrada_info_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info_entrada_info_id_usuario_infoTousuario_info          usuario_info           @relation("entrada_info_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: Cascade, onUpdate: Cascade)
   notificacao                                                      notificacao[]
 
   @@index([id_entrada], map: "idx_entrada_info_entrada")
@@ -60,7 +60,7 @@ model grupo_financeiro {
   id_usuario_info_cadastro Int
   nome                     String
   entrada_categoria        entrada_categoria[]
-  usuario_info             usuario_info               @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario_info             usuario_info               @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
   grupo_financeiro_usuario grupo_financeiro_usuario[]
   pagamento_entrada_tipo   pagamento_entrada_tipo[]
   pagamento_saida_tipo     pagamento_saida_tipo[]
@@ -84,9 +84,9 @@ model grupo_financeiro_usuario {
   id_usuario_info_cadastro                                                     Int
   id_usuario_info                                                              Int
   id_grupo_financeiro                                                          Int
-  grupo_financeiro                                                             grupo_financeiro @relation(fields: [id_grupo_financeiro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info usuario_info     @relation("grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info_grupo_financeiro_usuario_id_usuario_infoTousuario_info          usuario_info     @relation("grupo_financeiro_usuario_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  grupo_financeiro                                                             grupo_financeiro @relation(fields: [id_grupo_financeiro], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info usuario_info     @relation("grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info_grupo_financeiro_usuario_id_usuario_infoTousuario_info          usuario_info     @relation("grupo_financeiro_usuario_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: Cascade, onUpdate: Cascade)
   convite                                                                      convite[]
 
   @@index([role])
@@ -103,9 +103,9 @@ model notificacao {
   id_saida_info   Int?
   id_entrada_info Int?
   visto           Boolean
-  entrada_info    entrada_info? @relation(fields: [id_entrada_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  saida_info      saida_info?   @relation(fields: [id_saida_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info    usuario_info  @relation(fields: [id_usuario_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  entrada_info    entrada_info? @relation(fields: [id_entrada_info], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  saida_info      saida_info?   @relation(fields: [id_saida_info], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info    usuario_info  @relation(fields: [id_usuario_info], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model pagamento_entrada_tipo {
@@ -116,8 +116,8 @@ model pagamento_entrada_tipo {
   id_ativo                 Boolean
   id_grupo_financeiro      Int?
   entrada_info             entrada_info[]
-  grupo_financeiro         grupo_financeiro? @relation(fields: [id_grupo_financeiro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info             usuario_info      @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  grupo_financeiro         grupo_financeiro? @relation(fields: [id_grupo_financeiro], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info             usuario_info      @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model pagamento_saida_tipo {
@@ -127,8 +127,8 @@ model pagamento_saida_tipo {
   id_usuario_info_cadastro Int
   id_ativo                 Boolean
   id_grupo_financeiro      Int?
-  grupo_financeiro         grupo_financeiro? @relation(fields: [id_grupo_financeiro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info             usuario_info      @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  grupo_financeiro         grupo_financeiro? @relation(fields: [id_grupo_financeiro], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info             usuario_info      @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
   saida_info               saida_info[]
 }
 
@@ -147,8 +147,8 @@ model patrimonio_info {
   id_usuario_info_cadastro Int
   id_patrimonio            Int
   valor_mercado            Decimal                  @db.Decimal(15, 2)
-  patrimonio               patrimonio               @relation(fields: [id_patrimonio], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  usuario_info             usuario_info             @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  patrimonio               patrimonio               @relation(fields: [id_patrimonio], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info             usuario_info             @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
   patrimonio_info_imagem   patrimonio_info_imagem[]
 
   @@index([id_patrimonio], map: "idx_patrimonio_info_patrimonio")
@@ -160,8 +160,8 @@ model patrimonio_info_imagem {
   dthr_cadastro            DateTime        @db.Timestamp(6)
   imagem                   Int             @db.Oid
   id_patrimonio_info       Int
-  patrimonio_info          patrimonio_info @relation(fields: [id_patrimonio_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info             usuario_info    @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  patrimonio_info          patrimonio_info @relation(fields: [id_patrimonio_info], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info             usuario_info    @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model periodicidade {
@@ -173,7 +173,7 @@ model periodicidade {
   id_mensal                Boolean
   id_anual                 Boolean
   id_unico                 Boolean
-  usuario_info             usuario_info @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario_info             usuario_info @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model saida {
@@ -190,8 +190,8 @@ model saida_categoria {
   id_ativo                 Boolean
   id_grupo_financeiro      Int?
   id_patrimonial           Boolean
-  grupo_financeiro         grupo_financeiro? @relation(fields: [id_grupo_financeiro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info             usuario_info      @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  grupo_financeiro         grupo_financeiro? @relation(fields: [id_grupo_financeiro], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info             usuario_info      @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
   saida_info               saida_info[]
 }
 
@@ -212,12 +212,12 @@ model saida_info {
   id_patrimonio_info                                             Int?
   comprovante                                                    Int?                 @db.Oid
   notificacao                                                    notificacao[]
-  pagamento_saida_tipo                                           pagamento_saida_tipo @relation(fields: [id_pagamento_saida_tipo], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  saida_categoria                                                saida_categoria      @relation(fields: [id_saida_categoria], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  saida                                                          saida                @relation(fields: [id_saida], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  saida_prioridade                                               saida_prioridade     @relation(fields: [id_saida_prioridade], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info_saida_info_id_usuario_info_cadastroTousuario_info usuario_info         @relation("saida_info_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario_info_saida_info_id_usuario_infoTousuario_info          usuario_info         @relation("saida_info_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  pagamento_saida_tipo                                           pagamento_saida_tipo @relation(fields: [id_pagamento_saida_tipo], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  saida_categoria                                                saida_categoria      @relation(fields: [id_saida_categoria], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  saida                                                          saida                @relation(fields: [id_saida], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  saida_prioridade                                               saida_prioridade     @relation(fields: [id_saida_prioridade], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info_saida_info_id_usuario_info_cadastroTousuario_info usuario_info         @relation("saida_info_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usuario_info_saida_info_id_usuario_infoTousuario_info          usuario_info         @relation("saida_info_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([id_saida], map: "idx_saida_info_saida")
   @@index([id_usuario_info], map: "idx_saida_info_usuario")
@@ -231,7 +231,7 @@ model saida_prioridade {
   nivel                    Int
   nome                     String
   saida_info               saida_info[]
-  usuario_info             usuario_info @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario_info             usuario_info @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model usuario {
@@ -268,7 +268,7 @@ model usuario_info {
   saida_info_saida_info_id_usuario_info_cadastroTousuario_info                             saida_info[]               @relation("saida_info_id_usuario_info_cadastroTousuario_info")
   saida_info_saida_info_id_usuario_infoTousuario_info                                      saida_info[]               @relation("saida_info_id_usuario_infoTousuario_info")
   saida_prioridade                                                                         saida_prioridade[]
-  usuario                                                                                  usuario                    @relation(fields: [id_usuario], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  usuario                                                                                  usuario                    @relation(fields: [id_usuario], references: [id], onDelete: Cascade, onUpdate: Cascade)
   convite                                                                                  convite[]
 
   @@index([id_usuario], map: "idx_usuario_info_usuario")
