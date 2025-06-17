@@ -9,14 +9,11 @@ import { defineAbilityFor, roleSchema } from '@finlife/auth'
 import { userSchema } from '@finlife/auth/src/models/user'
 
 export async function createConvite(app: FastifyInstance){
-    app.withTypeProvider<ZodTypeProvider>().register(auth).post('/grupo-financeiro/:idGrupo/convite', {
+    app.withTypeProvider<ZodTypeProvider>().register(auth).post('/grupo-financeiro/convite', {
             schema:{
                 tags: ['Convite'],
                 summary: 'Convidar usuário para organização',
                 security: [{bearerAuth: []}],
-                params: z.object({
-                    idGrupo: z.coerce.number()
-                }),
                 body: z.object({
                     cargo: roleSchema,
                     usuarioDestinoId: z.coerce.number()
@@ -33,11 +30,10 @@ export async function createConvite(app: FastifyInstance){
             }
         },
         async(request, reply) => {
-            const {idGrupo} = request.params
             const userId = await request.getCurrentUserId()
             const {cargo, usuarioDestinoId} = request.body
 
-            const {grupoFinanceiro, grupoFinanceiroUsuario} = await request.getMembership(idGrupo)
+            const {grupoFinanceiro, grupoFinanceiroUsuario} = await request.getMembership()
 
             const authUser = userSchema.parse({
                 id: userId,

@@ -7,6 +7,6 @@ import { grupo_financeiro, grupo_financeiro_usuario } from '../src/generated/pri
 declare module 'fastify' {
     export interface FastifyRequest {
         getCurrentUserId(): Promise<number>
-        getMembership: (orgId: number) => Promise<{grupoFinanceiroUsuario: grupo_financeiro_usuario, grupoFinanceiro: grupo_financeiro}>
+        getMembership: () => Promise<{grupoFinanceiroUsuario: grupo_financeiro_usuario, grupoFinanceiro: grupo_financeiro}>
     }
 }

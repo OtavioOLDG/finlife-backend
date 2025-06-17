@@ -9,14 +9,11 @@ import { defineAbilityFor, roleSchema } from '@finlife/auth'
 import { userSchema } from '@finlife/auth/src/models/user'
 
 export async function createInviteEmail(app: FastifyInstance){
-    app.withTypeProvider<ZodTypeProvider>().register(auth).post('/grupo-financeiro/:idGrupo/convite-por-email', {
+    app.withTypeProvider<ZodTypeProvider>().register(auth).post('/grupo-financeiro/convite-por-email', {
             schema:{
                 tags: ['Convite'],
                 summary: 'Convidar usuário para organização',
                 security: [{bearerAuth: []}],
-                params: z.object({
-                    idGrupo: z.coerce.number()
-                }),
                 body: z.object({
                     cargo: roleSchema,
                     usuarioDestinoEmail: z.string().email()
@@ -33,7 +30,6 @@ export async function createInviteEmail(app: FastifyInstance){
             }
         },
         async(request, reply) => {
-            const {idGrupo} = request.params
             const userId = await request.getCurrentUserId()
             const {cargo, usuarioDestinoEmail} = request.body
 
@@ -49,7 +45,7 @@ export async function createInviteEmail(app: FastifyInstance){
                 throw new BadRequestError('Erro ao buscar usuário por email')
             }
 
-            const {grupoFinanceiro, grupoFinanceiroUsuario} = await request.getMembership(idGrupo)
+            const {grupoFinanceiro, grupoFinanceiroUsuario} = await request.getMembership()
 
             const authUser = userSchema.parse({
                 id: userId,

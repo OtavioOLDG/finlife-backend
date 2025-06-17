@@ -77,6 +77,19 @@ export async function createGrupoFinanceiro(app: FastifyInstance){
                 throw new BadRequestError('Você deve estar logado para realizar esta ação')
             }
 
+
+            const foundMember = await prisma.grupo_financeiro_usuario.findFirst({
+                where:{
+                    id_ativo: true,
+                    id_usuario_info: userId
+                }
+            })
+
+            if(foundMember){
+                throw new BadRequestError('Você não pode entrar em mais de um grupo')
+            }
+
+
             const result = await prisma.$transaction(async (tx) => {
                 const grupoFinanceiroCriado = await tx.grupo_financeiro.create({
                     data: {

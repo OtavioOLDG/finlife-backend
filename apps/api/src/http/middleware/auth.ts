@@ -23,15 +23,13 @@ export const auth = fastifyPlugin(async(app: FastifyInstance) => {
             }
         }
 
-        request.getMembership = async (orgId: number) => {
+        request.getMembership = async () => {
             const userId = await request.getCurrentUserId()
 
             const grupoFinanceiroUsuarioEncontrado = await prisma.grupo_financeiro_usuario.findFirst({
                 where: {
                     id_usuario_info: userId,
-                    grupo_financeiro: {
-                        id: orgId
-                    }
+                    id_ativo: true
                 },
                 include: {
                     grupo_financeiro: true
