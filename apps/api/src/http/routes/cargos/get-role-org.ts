@@ -22,13 +22,13 @@ export async function getRoleOrg(app: FastifyInstance){
             }
         },
         async(request, reply) => {
-            const {grupoFinanceiroUsuario} = await request.getMembership()
-
-            if(!grupoFinanceiroUsuario){
+            try{
+                const {grupoFinanceiroUsuario} = await request.getMembership()
+                
+                return reply.status(200).send({role: grupoFinanceiroUsuario.role})
+            } catch(err){
                 return reply.status(200).send({role: Role.CONVIDADO})
             }
-
-            return reply.status(200).send({role: grupoFinanceiroUsuario.role})
         }
     )
 }

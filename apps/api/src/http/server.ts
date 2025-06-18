@@ -21,6 +21,7 @@ import { acceptInvite } from "./routes/convites/accept-invite";
 import { declineInvite } from "./routes/convites/decline-invite";
 import { createInviteEmail } from "./routes/convites/createInviteEmail";
 import { getRoleOrg } from "./routes/cargos/get-role-org";
+import { quitFromGroup } from "./routes/grupo-financeiro/quit-from-group";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -64,6 +65,7 @@ app.register(pegarCargo)
 
 // rotas cargos
 app.register(getRoleOrg)
+app.register(quitFromGroup)
 
 // rotas convites
 app.register(createConvite)

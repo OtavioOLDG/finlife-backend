@@ -11,7 +11,7 @@ export async function createGrupoFinanceiro(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).post('/groups', {
             schema:{
                 tags: ['Grupo Financeiro'],
-                summary: 'Cria grupo financeiro adicionando usuário admin',
+                summary: 'Cria grupo financeiro adicionando usuário logado como admin',
                 security: [{bearerAuth: []}],
                 body: z.object({
                     nome: z.string()

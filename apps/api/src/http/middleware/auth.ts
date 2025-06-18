@@ -37,7 +37,7 @@ export const auth = fastifyPlugin(async(app: FastifyInstance) => {
             })
 
             if(!grupoFinanceiroUsuarioEncontrado){
-                throw new BadRequestError('Você não faz parte desta organização')
+                throw new BadRequestError('Você não faz parte de uma organização')
             }
 
             const {grupo_financeiro: grupoFinanceiro, ...grupoFinanceiroUsuario} = grupoFinanceiroUsuarioEncontrado
