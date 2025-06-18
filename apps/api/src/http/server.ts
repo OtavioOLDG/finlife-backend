@@ -1,14 +1,14 @@
-import { FastifyInstance, fastify } from "fastify";
+import { fastify } from "fastify";
 import fastifyCors from "@fastify/cors";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import fastifyJwt from "@fastify/jwt";
-import { jsonSchemaTransform,serializerCompiler,validatorCompiler,ZodTypeProvider } from "fastify-type-provider-zod";
+import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { createAccount } from "./routes/users/create-account";
 import { loginAccount } from "./routes/users/login-account";
 import { getProfile } from "./routes/users/get-user";
 import { errorHandler } from "./error-handler";
-import { env } from '@finlife/env'
+import { env } from '@finlife/env';
 import { createEntradaCategoria } from "./routes/entrada-categoria/create-entrada-categoria";
 import { pegarToken } from "./routes/desenvolvimento/pegar-token";
 import { createSaidaPrioridade } from "./routes/saida-prioridade/create-saida-prioridade";
@@ -23,6 +23,8 @@ import { createInviteEmail } from "./routes/convites/createInviteEmail";
 import { getRoleOrg } from "./routes/cargos/get-role-org";
 import { quitFromGroup } from "./routes/grupo-financeiro/quit-from-group";
 import { createEquity } from "./routes/patrimonio/create-patrimonio";
+import { newNotification } from "./routes/notificacoes/newNotification";
+import { getAllUserNotifications } from "./routes/notificacoes/get-all-user-notifications";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -80,6 +82,10 @@ app.register(createEntradaCategoria)
 
 // rotas grupo financeiro
 app.register(createGrupoFinanceiro)
+
+// rotas notificação
+app.register(newNotification)
+app.register(getAllUserNotifications)
 
 // rotas patrimônio
 app.register(createEquity)
