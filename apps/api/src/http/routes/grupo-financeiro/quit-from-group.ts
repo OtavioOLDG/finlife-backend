@@ -21,7 +21,29 @@ export async function quitFromGroup(app: FastifyInstance){
             }
         },
         async(request, reply) => {
-            const {grupoFinanceiroUsuario} = await request.getMembership()
+            const {grupoFinanceiroUsuario, grupoFinanceiro} = await request.getMembership()
+
+            const foundUsersFromGroup = await prisma.grupo_financeiro_usuario.findMany({
+                where: {
+                    id_grupo_financeiro: grupoFinanceiro.id,
+                    id_ativo: true
+                }
+            })
+
+            if(foundUsersFromGroup.length <= 1){
+                const updatedGroup = await prisma.grupo_financeiro.update({
+                    where: {
+                        id: grupoFinanceiro.id
+                    },
+                    data:{
+                        id_ativo: false
+                    }
+                })
+
+                if(!updatedGroup){
+                    throw new BadRequestError('Erro ao apagar grupo')
+                }
+            }
 
             const quitUser = await prisma.grupo_financeiro_usuario.update({
                 where:{
