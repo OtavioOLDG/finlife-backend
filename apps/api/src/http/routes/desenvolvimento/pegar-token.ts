@@ -20,7 +20,7 @@ export async function pegarToken(app: FastifyInstance){
                 sub: 1
             }, {
                 sign : {
-                    expiresIn: '10m'
+                    expiresIn: '1d'
                 }
             })
 

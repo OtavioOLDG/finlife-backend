@@ -49,7 +49,7 @@ export async function loginAccount(app: FastifyInstance){
                 sub: userFromEmail.id
             }, {
                 sign : {
-                    expiresIn: '10m'
+                    expiresIn: '1d'
                 }
             })
 
