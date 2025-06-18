@@ -22,6 +22,7 @@ import { declineInvite } from "./routes/convites/decline-invite";
 import { createInviteEmail } from "./routes/convites/createInviteEmail";
 import { getRoleOrg } from "./routes/cargos/get-role-org";
 import { quitFromGroup } from "./routes/grupo-financeiro/quit-from-group";
+import { createEquity } from "./routes/patrimonio/create-patrimonio";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -77,8 +78,11 @@ app.register(createInviteEmail)
 // rotas entrada categoria
 app.register(createEntradaCategoria)
 
-//rotas grupo financeiro
+// rotas grupo financeiro
 app.register(createGrupoFinanceiro)
+
+// rotas patrimônio
+app.register(createEquity)
 
 // rotas usuários
 app.register(createAccount)
