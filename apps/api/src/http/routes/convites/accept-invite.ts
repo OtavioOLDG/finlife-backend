@@ -63,15 +63,25 @@ export async function acceptInvite(app: FastifyInstance){
                 throw new BadRequestError('Erro ao procurar grupo financeiro')
             }
 
+            const userFromGroup = await prisma.grupo_financeiro_usuario.findUnique({
+                where: {
+                    id: convite.grupo_financeiro_usuarioId
+                }
+            })
+
+            if(!userFromGroup){
+                throw new BadRequestError('Erro ao aceitar convite')
+            }
+
             const result = await prisma.$transaction(async (tx) => {
                 const usuarioOrgCriado = await prisma.grupo_financeiro_usuario.create({
                     data:{
-                        id_usuario_info: userId,
                         dthr_cadastro: new Date(),
                         id_ativo: true,
-                        id_grupo_financeiro: grupoFinanceiro.id,
                         role: convite.cargo,
-                        id_usuario_info_cadastro: convite.grupo_financeiro_usuarioId
+                        id_grupo_financeiro: grupoFinanceiro.id,
+                        id_usuario_info: userId,
+                        id_usuario_info_cadastro: userFromGroup.id_usuario_info
                     }
                 })
 
