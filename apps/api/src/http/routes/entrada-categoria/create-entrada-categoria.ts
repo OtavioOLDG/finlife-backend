@@ -22,7 +22,7 @@ export async function createEntradaCategoria(app: FastifyInstance) {
                         dthr_cadastro: z.date(),
                         id_ativo: z.boolean(),
                         id_patrimonial: z.boolean(),
-                        id_usuario_info_cadastro: z.number(),
+                        id_usuario_info_cadastro: z.number().nullable(),
                         id_grupo_financeiro: z.number().nullable()
                     }),
                 }
@@ -50,14 +50,15 @@ export async function createEntradaCategoria(app: FastifyInstance) {
                     id_patrimonial: true,
                     id_usuario_info_cadastro: true,
                     nome: true,
-                    dthr_cadastro: true
+                    dthr_cadastro: true,
                 },
                 data: {
                     id_ativo: true,
                     id_patrimonial: false,
                     id_usuario_info_cadastro: user.id,
                     nome: nome,
-                    dthr_cadastro: new Date()
+                    dthr_cadastro: new Date(),
+                    publico: false
                 }
             })
 

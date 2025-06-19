@@ -25,6 +25,7 @@ import { quitFromGroup } from "./routes/grupo-financeiro/quit-from-group";
 import { createEquity } from "./routes/patrimonio/create-patrimonio";
 import { newNotification } from "./routes/notificacoes/newNotification";
 import { getAllUserNotifications } from "./routes/notificacoes/get-all-user-notifications";
+import { getEntradaCategoria } from "./routes/entrada-categoria/getEntradasCategoria";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -79,6 +80,7 @@ app.register(createInviteEmail)
 
 // rotas entrada categoria
 app.register(createEntradaCategoria)
+app.register(getEntradaCategoria)
 
 // rotas grupo financeiro
 app.register(createGrupoFinanceiro)
