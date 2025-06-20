@@ -15,6 +15,8 @@ import { organizationSubject } from './subjects/organization';
 import { inviteSubject } from './subjects/invite';
 import { z } from 'zod';
 import { conviteSubject } from './subjects/convite';
+import { memberSubject } from './subjects/member';
+import { patrimonioSubject } from './subjects/patrimonio';
 
 export * from './roles'
 
@@ -25,6 +27,8 @@ const appAbilitiesSchema = z.union([
   organizationSubject,
   inviteSubject,
   conviteSubject,
+  memberSubject,
+  patrimonioSubject,
   z.tuple([z.literal('manage'), z.literal('all')])
 ])
 

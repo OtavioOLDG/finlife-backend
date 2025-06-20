@@ -6,13 +6,14 @@ import type { Role } from "./roles"
 type PermissionsByRole = (user: User, builder: AbilityBuilder<AppAbility>) => void
 
 export const permissions: Record<Role, PermissionsByRole> = {
-    ADMIN(_, { can, cannot }) {
+    ADMIN(user, { can, cannot }) {
         can('manage', 'all')
     },
-    MEMBRO(_, { can, cannot}) {
+    MEMBRO(user, { can, cannot}) {
         can('get', 'Convite')
+        can('get', 'Member')
     },
-    CONVIDADO(_, { can , cannot}){
+    CONVIDADO(user, { can , cannot}){
         can('get', 'Convite')
     }
 }

@@ -26,6 +26,13 @@ import { createEquity } from "./routes/patrimonio/create-patrimonio";
 import { newNotification } from "./routes/notificacoes/newNotification";
 import { getAllUserNotifications } from "./routes/notificacoes/get-all-user-notifications";
 import { getEntradaCategoria } from "./routes/entrada-categoria/getEntradasCategoria";
+import { removeUser } from "./routes/users/remove-user";
+import { getSaidaPrioridade } from "./routes/saida-prioridade/getSaidaPrioridade";
+import { unInvite } from "./routes/convites/uninvite";
+import { getALlInvites } from "./routes/convites/getAllInvites";
+import { removePatrimonio } from "./routes/patrimonio/remove-patrimonio";
+import { getAllEquityUser } from "./routes/patrimonio/get-all-patrimonio";
+import { getAllEquityGroup } from "./routes/patrimonio/get-all-patrimonios-grupo";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -77,6 +84,8 @@ app.register(getAllUserInvites)
 app.register(acceptInvite)
 app.register(declineInvite)
 app.register(createInviteEmail)
+app.register(unInvite)
+app.register(getALlInvites)
 
 // rotas entrada categoria
 app.register(createEntradaCategoria)
@@ -91,14 +100,20 @@ app.register(getAllUserNotifications)
 
 // rotas patrimônio
 app.register(createEquity)
+app.register(removePatrimonio)
+app.register(getAllEquityUser)
+app.register(getAllEquityGroup)
 
 // rotas usuários
 app.register(createAccount)
 app.register(loginAccount)
 app.register(getProfile)
 app.register(updateUser)
+app.register(removeUser)
 
+// rotas saida prioridade
 app.register(createSaidaPrioridade)
+app.register(getSaidaPrioridade)
 
 app.listen({port: parseInt(env.SERVER_PORT)}).then(() => {
     console.log('HTTP Server is running')
