@@ -49,6 +49,7 @@ import { getAllEntradasGroup } from "./routes/entrada/get-all-entradas";
 import { getEntrada } from "./routes/entrada/get-entrada";
 import { getSaida } from "./routes/saida/get-saida";
 import { getAllSaidaGroup } from "./routes/saida/get-all-group-outcomes";
+import { metadata } from "./routes/metadata/prices";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -126,6 +127,9 @@ app.register(getAllMembersGroup)
 // rotas notificação
 app.register(newNotification)
 app.register(getAllUserNotifications)
+
+// rotas metadata
+app.register(metadata)
 
 // rotas patrimônio
 app.register(createEquity)

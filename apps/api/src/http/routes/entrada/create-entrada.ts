@@ -28,8 +28,8 @@ interface EntradaInfo{
 export async function createEntrada(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).post('/entrada', {
             schema:{
-                tags: ['Saída'],
-                summary: 'Cadastra uma nova saída',
+                tags: ['Entrada'],
+                summary: 'Cadastra uma nova entrada',
                 security: [{bearerAuth: []}],
                 body: z.object({
                     nome: z.string(),
