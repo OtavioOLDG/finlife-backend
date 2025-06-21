@@ -4,27 +4,25 @@ import { z } from "zod";
 import { auth } from "../../middleware/auth";
 import { prisma } from "../../../lib/prisma";
 import { BadRequestError } from "../_errors/bad-request-error";
+import type { entrada } from "../../../generated/prisma";
+import { boolean } from "zod/v4";
 
 interface Entrada {
-    id_ativo: boolean,
-    id_patrimonial: boolean,
-    id_usuario_info_cadastro: number,
-    nome: string,
-    dthr_cadastro: Date,
-    publico: boolean,
+    nome?: string
+    id_ativo?: boolean
+    id_patrimonial?: boolean
     id_grupo_financeiro?: number
 }
 
-export async function createEntradaCategoria(app: FastifyInstance) {
-    app.withTypeProvider<ZodTypeProvider>().register(auth).post('/entrada/categorias', {
+export async function deleteEntradaCategoria(app: FastifyInstance) {
+    app.withTypeProvider<ZodTypeProvider>().register(auth).delete('/entrada/categoria/:id', {
             schema: {
                 tags: ['Entrada Categoria'],
-                summary: 'Usuário cria uma categoria de entrada',
+                summary: 'Usuário remove uma categoria de entrada',
                 security: [{bearerAuth: []}],
-                body: z.object({
-                    nome: z.string(),
-                    vincular_grupo: z.boolean(),
-                },),
+                params: z.object({
+                    id: z.coerce.number()
+                }),
                 response: {
                     201: z.object({
                         id: z.number(),
@@ -40,9 +38,10 @@ export async function createEntradaCategoria(app: FastifyInstance) {
         },
         async (request, reply) => {
             const userId = await request.getCurrentUserId()
+
             const user = await prisma.usuario_info.findUnique({
                 where: {
-                    id: userId
+                    id: userId,
                 }
             })
 
@@ -50,23 +49,24 @@ export async function createEntradaCategoria(app: FastifyInstance) {
                 throw new BadRequestError('Erro ao buscar usuário criador da categoria')
             }
 
-            const {nome,vincular_grupo} = request.body
+            const {id} = request.params
 
-            const data : Entrada = {
-                id_ativo: true,
-                id_patrimonial: false,
-                id_usuario_info_cadastro: user.id,
-                nome: nome,
-                dthr_cadastro: new Date(),
-                publico: false
+            const entradaFound = await prisma.entrada_categoria.findFirst({
+                where: {
+                    id,
+                    id_ativo: true,
+                    id_usuario_info_cadastro: userId
+                }
+            })
+
+            if(!entradaFound){
+                throw new BadRequestError('Entrada não encontrada')
             }
 
-            if(vincular_grupo){
-                const {grupoFinanceiro} = await request.getMembership()
-                data.id_grupo_financeiro = grupoFinanceiro.id
-            }
-
-            const createdEntradaCategoria = await prisma.entrada_categoria.create({
+            const deleteEntradaCategoria = await prisma.entrada_categoria.update({
+                where: {
+                    id
+                },
                 select: {
                     id: true,
                     id_grupo_financeiro: true,
@@ -76,10 +76,12 @@ export async function createEntradaCategoria(app: FastifyInstance) {
                     nome: true,
                     dthr_cadastro: true,
                 },
-                data: data
+                data: {
+                    id_ativo: false,
+                }
             })
 
-            return reply.status(201).send(createdEntradaCategoria)
+            return reply.status(201).send(deleteEntradaCategoria)
         }
     )
 }

@@ -35,6 +35,12 @@ import { getAllEquityUser } from "./routes/patrimonio/get-all-patrimonio";
 import { getAllEquityGroup } from "./routes/patrimonio/get-all-patrimonios-grupo";
 import { getEquityById } from "./routes/patrimonio/get-patrimonio";
 import { getAllMembersGroup } from "./routes/grupo-usuario/get-all-members";
+import { updateEntradaCategoria } from "./routes/entrada-categoria/update-entrada-categoria";
+import { deleteEntradaCategoria } from "./routes/entrada-categoria/delete-entrada-categoria";
+import { createSaidaCategoria } from "./routes/saida-categoria/create-saida-categoria";
+import { getSaidaCategoria } from "./routes/saida-categoria/get-saida-categorias";
+import { updateSaidaCategoria } from "./routes/saida-categoria/update-saida-categoria";
+import { removeSaidaCategoria } from "./routes/saida-categoria/remove-entrada-categoria";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -92,6 +98,8 @@ app.register(getALlInvites)
 // rotas entrada categoria
 app.register(createEntradaCategoria)
 app.register(getEntradaCategoria)
+app.register(updateEntradaCategoria)
+app.register(deleteEntradaCategoria)
 
 // rotas grupo financeiro
 app.register(createGrupoFinanceiro)
@@ -116,6 +124,12 @@ app.register(loginAccount)
 app.register(getProfile)
 app.register(updateUser)
 app.register(removeUser)
+
+// rotas saída categoria
+app.register(createSaidaCategoria)
+app.register(getSaidaCategoria)
+app.register(updateSaidaCategoria)
+app.register(removeSaidaCategoria)
 
 // rotas saida prioridade
 app.register(createSaidaPrioridade)

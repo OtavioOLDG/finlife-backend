@@ -9,7 +9,7 @@ export async function getEntradaCategoria(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().register(auth).get('/entrada/categorias', {
             schema: {
                 tags: ['Entrada Categoria'],
-                summary: 'Usuário cria uma categoria de entrada',
+                summary: 'Pega as categorias de entrada do usuário',
                 security: [{bearerAuth: []}],
                 response: {
                     200: z.object({
@@ -37,10 +37,10 @@ export async function getEntradaCategoria(app: FastifyInstance) {
         },
         async (request, reply) => {
             const userId = await request.getCurrentUserId()
+
             const user = await prisma.usuario_info.findUnique({
                 where: {
                     id: userId,
-                    id_ativo:true
                 }
             })
 
@@ -79,7 +79,8 @@ export async function getEntradaCategoria(app: FastifyInstance) {
                     dthr_cadastro: true,
                 },
                 where: {
-                    id_usuario_info_cadastro: userId
+                    id_usuario_info_cadastro: userId,
+                    id_ativo: true
                 }
             })
 

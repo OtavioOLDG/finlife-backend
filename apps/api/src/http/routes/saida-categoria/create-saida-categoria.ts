@@ -5,21 +5,21 @@ import { auth } from "../../middleware/auth";
 import { prisma } from "../../../lib/prisma";
 import { BadRequestError } from "../_errors/bad-request-error";
 
-interface Entrada {
+
+interface Saida {
     id_ativo: boolean,
     id_patrimonial: boolean,
     id_usuario_info_cadastro: number,
     nome: string,
     dthr_cadastro: Date,
-    publico: boolean,
     id_grupo_financeiro?: number
 }
 
-export async function createEntradaCategoria(app: FastifyInstance) {
-    app.withTypeProvider<ZodTypeProvider>().register(auth).post('/entrada/categorias', {
+export async function createSaidaCategoria(app: FastifyInstance) {
+    app.withTypeProvider<ZodTypeProvider>().register(auth).post('/saida/categorias', {
             schema: {
-                tags: ['Entrada Categoria'],
-                summary: 'Usuário cria uma categoria de entrada',
+                tags: ['Saída Categoria'],
+                summary: 'Usuário cria uma categoria de saída',
                 security: [{bearerAuth: []}],
                 body: z.object({
                     nome: z.string(),
@@ -52,13 +52,12 @@ export async function createEntradaCategoria(app: FastifyInstance) {
 
             const {nome,vincular_grupo} = request.body
 
-            const data : Entrada = {
+            const data : Saida = {
                 id_ativo: true,
                 id_patrimonial: false,
                 id_usuario_info_cadastro: user.id,
                 nome: nome,
                 dthr_cadastro: new Date(),
-                publico: false
             }
 
             if(vincular_grupo){
@@ -66,7 +65,7 @@ export async function createEntradaCategoria(app: FastifyInstance) {
                 data.id_grupo_financeiro = grupoFinanceiro.id
             }
 
-            const createdEntradaCategoria = await prisma.entrada_categoria.create({
+            const createdSaidaCategoria = await prisma.saida_categoria.create({
                 select: {
                     id: true,
                     id_grupo_financeiro: true,
@@ -79,7 +78,7 @@ export async function createEntradaCategoria(app: FastifyInstance) {
                 data: data
             })
 
-            return reply.status(201).send(createdEntradaCategoria)
+            return reply.status(201).send(createdSaidaCategoria)
         }
     )
 }
