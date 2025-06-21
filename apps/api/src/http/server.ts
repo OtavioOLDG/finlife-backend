@@ -41,6 +41,9 @@ import { createSaidaCategoria } from "./routes/saida-categoria/create-saida-cate
 import { getSaidaCategoria } from "./routes/saida-categoria/get-saida-categorias";
 import { updateSaidaCategoria } from "./routes/saida-categoria/update-saida-categoria";
 import { removeSaidaCategoria } from "./routes/saida-categoria/remove-entrada-categoria";
+import { createIncome } from "./routes/pagamento-entrada-tipo/create-entrada-tipo";
+import { createOutcome } from "./routes/pagamento-saida-tipo/create-pagemento-saida";
+import { createSaida } from "./routes/saida/create-saida";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -101,6 +104,9 @@ app.register(getEntradaCategoria)
 app.register(updateEntradaCategoria)
 app.register(deleteEntradaCategoria)
 
+// rotas entrada tipo
+app.register(createIncome)
+
 // rotas grupo financeiro
 app.register(createGrupoFinanceiro)
 
@@ -125,6 +131,9 @@ app.register(getProfile)
 app.register(updateUser)
 app.register(removeUser)
 
+// rotas saida
+app.register(createSaida)
+
 // rotas saída categoria
 app.register(createSaidaCategoria)
 app.register(getSaidaCategoria)
@@ -134,6 +143,9 @@ app.register(removeSaidaCategoria)
 // rotas saida prioridade
 app.register(createSaidaPrioridade)
 app.register(getSaidaPrioridade)
+
+// rotas saida tipo
+app.register(createOutcome)
 
 app.listen({port: parseInt(env.SERVER_PORT)}).then(() => {
     console.log('HTTP Server is running')
