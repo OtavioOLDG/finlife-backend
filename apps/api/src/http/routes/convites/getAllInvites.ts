@@ -16,15 +16,32 @@ export async function getALlInvites(app: FastifyInstance){
                 security: [{bearerAuth: []}],
                 response: {
                     200: z.object({
-                        convites: z.array(z.object({
-                            id: z.number(),
-                            cargo: roleSchema,
-                            grupo_financeiro_usuarioId: z.number(),
-                            recusado: z.boolean(),
-                            pendente: z.boolean(),
-                            usuarioDestinoId: z.number(),
-                            grupoFinanceiroId: z.number(),
-                        }))
+                        convites: z.array(
+                            z.object({
+                                usuario : z.object({
+                                    id: z.number(),
+                                    email: z.string(),
+                                }),
+                                membroId: z.object({
+                                    usuario_info_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info: z.object({
+                                        usuario: z.object({
+                                            nome: z.string(),
+                                            sobrenome: z.string(),
+                                        })
+                                    })
+                                })
+                            }).merge(
+                                    z.object({
+                                        id: z.number(),
+                                        cargo: roleSchema,
+                                        grupo_financeiro_usuarioId: z.number(),
+                                        recusado: z.boolean(),
+                                        pendente: z.boolean(),
+                                        usuarioDestinoId: z.number(),
+                                        grupoFinanceiroId: z.number(),
+                                    })
+                                )
+                        )
                     })
                 }
             }
@@ -53,6 +70,23 @@ export async function getALlInvites(app: FastifyInstance){
                 where: {
                     pendente: true,
                     grupoFinanceiroId: grupoFinanceiro.id
+                },
+                include:{
+                    usuario: true,
+                    membroId:{
+                        include:{
+                            usuario_info_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info:{
+                                include: {
+                                    usuario: {
+                                        select: {
+                                            nome: true,
+                                            sobrenome: true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             })
 

@@ -5,7 +5,9 @@
         "dev": "pnpm env:load tsx watch src/http/server.ts",
         "env:load": "dotenv -e ../../.env --",
         "db:migrate": "pnpm env:load prisma migrate dev",
-        "db:studio": "pnpm env:load prisma studio"
+        "db:studio": "pnpm env:load prisma studio",
+        "db:seed" : "pnpm env:load prisma db seed",
+        "db:setup": "pnpm db:migrate && pnpm db:seed"
     },
     "dependencies": {
         "@fastify/cors": "^11.0.1",
@@ -34,6 +36,9 @@
         "extends": [
             "@finlife/eslint-config/node"
         ]
+    },
+    "prisma": {
+        "seed" : "tsx prisma/seed.ts"
     },
     "prettier": "@finlife/prettier"
 }
