@@ -65,12 +65,25 @@ export async function createConvite(app: FastifyInstance){
             const memboJaExistente = await prisma.grupo_financeiro_usuario.findFirst({
                 where: {
                     id_usuario_info: usuarioDestinoId,
-                    id_grupo_financeiro: grupoFinanceiro.id
+                    id_grupo_financeiro: grupoFinanceiro.id,
+                    id_ativo: true
                 }
             })
 
             if(memboJaExistente){
                 throw new BadRequestError('O usuário já faz parte da organização')
+            }
+
+            const usuario_achado = await prisma.usuario_info.findFirst({
+                where: {
+                    id: usuarioDestinoId,
+                    id_ativo: true,
+                    id_info_ativo: true
+                }
+            })
+
+            if(!usuario_achado){
+                throw new BadRequestError('Usuário não encontrado')
             }
             
             const conviteCriado = await prisma.convite.create({

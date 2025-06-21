@@ -12,7 +12,7 @@ export async function getALlInvites(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).get('/convites', {
             schema:{
                 tags: ['Convite'],
-                summary: 'Desconvidar usuário para organização / Cancelar convite',
+                summary: 'Pega todos os convites da organização',
                 security: [{bearerAuth: []}],
                 response: {
                     200: z.object({

@@ -77,7 +77,8 @@ export async function createInviteEmail(app: FastifyInstance){
             const memboJaExistente = await prisma.grupo_financeiro_usuario.findFirst({
                 where: {
                     id_usuario_info: usuarioDestino.id,
-                    id_grupo_financeiro: grupoFinanceiro.id
+                    id_grupo_financeiro: grupoFinanceiro.id,
+                    id_ativo: true
                 }
             })
 

@@ -15,7 +15,16 @@ export async function quitFromGroup(app: FastifyInstance){
                 security: [{bearerAuth: []}],
                 response: {
                     200: z.object({
-                        message: z.string()
+                        message: z.string(),
+                        usuario: z.object({
+                            id: z.number(),
+                            id_ativo: z.boolean(),
+                            dthr_cadastro: z.date(),
+                            role: roleSchema,
+                            id_usuario_info_cadastro: z.number(),
+                            id_usuario_info: z.number(),
+                            id_grupo_financeiro: z.number(),
+                        })
                     })
                 }
             }
@@ -59,7 +68,10 @@ export async function quitFromGroup(app: FastifyInstance){
             }
 
 
-            reply.status(200).send({message : 'Você saiu do seu grupo'})
+            reply.status(200).send({
+                message : 'Você saiu do seu grupo',
+                usuario: quitUser
+            })
         }
     )
 }
