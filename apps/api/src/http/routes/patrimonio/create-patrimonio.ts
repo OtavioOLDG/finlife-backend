@@ -46,6 +46,9 @@ export async function createEquity(app: FastifyInstance){
 
 
             const userFromId = await prisma.usuario_info.findUnique({
+                include:{
+                    usuario : true
+                },
                 where: {
                     id: userId
                 }
@@ -59,7 +62,7 @@ export async function createEquity(app: FastifyInstance){
                 const createdPatrimonio = await tx.patrimonio.create({
                     data: {
                         nome: nome,
-                        valor_aquisicao
+                        valor_aquisicao: valor_aquisicao
                     }
                 }) 
 
@@ -73,6 +76,47 @@ export async function createEquity(app: FastifyInstance){
                         id_usuario_info_cadastro: userId
                     }
                 })
+
+                try{
+                    const {grupoFinanceiro, grupoFinanceiroUsuario} = await request.getMembership()
+
+                    const usuarioAdmin = await prisma.grupo_financeiro_usuario.findFirst({
+                        where:{
+                            id_grupo_financeiro: grupoFinanceiro.id,
+                            id_ativo: true,
+                            role: 'ADMIN'
+                        },
+                        include: {
+                            usuario_info_grupo_financeiro_usuario_id_usuario_infoTousuario_info: {
+                                select: {
+                                    id: true,
+                                    email: true,
+                                }
+                            }
+                        }
+                    })
+
+                    if(!usuarioAdmin){
+                        throw new BadRequestError('Erro ao notificar admin')
+                    }
+
+                    const notificacao = await prisma.notificacao.create({
+                        data: {
+                            descricao: `O usuário ${userFromId.usuario.nome} cadastrou o patrimônio ${createdPatrimonio.nome}`,
+                            dthr_cadastro: new Date(),
+                            titulo: 'Saída registrada',
+                            visto: false,
+                            patrimonio_infoId: createdPatrimonioInfo.id,
+                            id_usuario_info: usuarioAdmin.usuario_info_grupo_financeiro_usuario_id_usuario_infoTousuario_info.id
+                        }
+                    })
+
+                    if(!notificacao){
+                        throw new BadRequestError('Erro ao notificar ADMIN')
+                    }
+                }catch(err){
+                    return { createdPatrimonio, createdPatrimonioInfo };
+                }  
 
                 return { createdPatrimonio, createdPatrimonioInfo };
             })

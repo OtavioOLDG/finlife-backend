@@ -99,17 +99,20 @@ model grupo_financeiro_usuario {
 }
 
 model notificacao {
-  id              Int           @id @default(autoincrement())
-  id_usuario_info Int
-  dthr_cadastro   DateTime      @db.Timestamp(6)
-  titulo          String
-  descricao       String
-  id_saida_info   Int?
-  id_entrada_info Int?
-  visto           Boolean
-  entrada_info    entrada_info? @relation(fields: [id_entrada_info], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  saida_info      saida_info?   @relation(fields: [id_saida_info], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  usuario_info    usuario_info  @relation(fields: [id_usuario_info], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id                Int      @id @default(autoincrement())
+  id_usuario_info   Int
+  dthr_cadastro     DateTime @db.Timestamp(6)
+  titulo            String
+  descricao         String
+  id_saida_info     Int?
+  id_entrada_info   Int?
+  patrimonio_infoId Int?
+  visto             Boolean
+
+  id_patrimonio patrimonio_info? @relation(fields: [patrimonio_infoId], references: [id])
+  entrada_info  entrada_info?    @relation(fields: [id_entrada_info], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  saida_info    saida_info?      @relation(fields: [id_saida_info], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  usuario_info  usuario_info     @relation(fields: [id_usuario_info], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model pagamento_entrada_tipo {
@@ -156,6 +159,7 @@ model patrimonio_info {
   patrimonio_info_imagem   patrimonio_info_imagem[]
   saida_info               saida_info[]
   entrada_info             entrada_info[]
+  notificacao              notificacao[]
 
   @@index([id_patrimonio], map: "idx_patrimonio_info_patrimonio")
 }

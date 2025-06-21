@@ -44,6 +44,7 @@ import { removeSaidaCategoria } from "./routes/saida-categoria/remove-entrada-ca
 import { createIncome } from "./routes/pagamento-entrada-tipo/create-entrada-tipo";
 import { createOutcome } from "./routes/pagamento-saida-tipo/create-pagemento-saida";
 import { createSaida } from "./routes/saida/create-saida";
+import { createEntrada } from "./routes/entrada/create-entrada";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -97,6 +98,9 @@ app.register(declineInvite)
 app.register(createInviteEmail)
 app.register(unInvite)
 app.register(getALlInvites)
+
+// rotas entrada
+app.register(createEntrada)
 
 // rotas entrada categoria
 app.register(createEntradaCategoria)
