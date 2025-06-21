@@ -32,7 +32,7 @@ export async function createIncome(app: FastifyInstance){
                             id: z.number(),
                             id_ativo: z.boolean(),
                             dthr_cadastro: z.date(),
-                            id_usuario_info_cadastro: z.number(),
+                            id_usuario_info_cadastro: z.number().nullable(),
                             id_grupo_financeiro: z.number().nullable(),
                             nome: z.string(),
                         }),

@@ -4,6 +4,9 @@ const prisma = new PrismaClient()
 
 async function seed() {
     await prisma.saida_prioridade.deleteMany()
+    // await prisma.pagamento_entrada_tipo.deleteMany()
+    // await prisma.pagamento_saida_tipo.deleteMany()
+
 
     const categorias = await prisma.saida_prioridade.createMany({
         data: [
@@ -44,6 +47,84 @@ async function seed() {
         throw new Error('Erro interno')
     }
 
+    const entradasTipo = await prisma.pagamento_entrada_tipo.createMany({
+        data: [
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Pix',
+                publico: true
+            },
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Cartão de crédito',
+                publico: true
+            },
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Cartão de débito',
+                publico: true
+            },
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Em dinheiro',
+                publico: true
+            },
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Serviços',
+                publico: true
+            },
+        ]
+    })
+
+    if(!entradasTipo){
+        throw new Error('Erro interno')
+    }
+
+    
+    const saidasTipo = await prisma.pagamento_saida_tipo.createMany({
+        data: [
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Pix',
+                publico: true
+            },
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Cartão de crédito',
+                publico: true
+            },
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Cartão de débito',
+                publico: true
+            },
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Em dinheiro',
+                publico: true
+            },
+            {
+                id_ativo: true,
+                dthr_cadastro: new Date(),
+                nome: 'Serviços',
+                publico: true
+            },
+        ]
+    })
+
+    if(!saidasTipo){
+        throw new Error('Erro interno')
+    }
 
 
 }
