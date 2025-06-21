@@ -29,26 +29,29 @@ model entrada_categoria {
 }
 
 model entrada_info {
-  id                                                               Int                    @id @default(autoincrement())
-  dthr_cadastro                                                    DateTime               @db.Timestamp(6)
-  dthr_entrada                                                     DateTime?              @db.Timestamp(6)
-  id_usuario_info_cadastro                                         Int
-  id_info_ativo                                                    Boolean
-  id_ativo                                                         Boolean
-  id_entrada                                                       Int
-  id_entrada_categoria                                             Int
-  id_pagamento_entrada_tipo                                        Int
-  id_usuario_info                                                  Int
-  id_periodicidade                                                 Int
-  valor                                                            Decimal                @db.Decimal(15, 2)
-  id_patrimonio_info                                               Int?
-  comprovante                                                      Int?                   @db.Oid
+  id                        Int       @id @default(autoincrement())
+  dthr_cadastro             DateTime  @db.Timestamp(6)
+  dthr_entrada              DateTime? @db.Timestamp(6)
+  id_usuario_info_cadastro  Int
+  id_info_ativo             Boolean
+  id_ativo                  Boolean
+  id_entrada                Int
+  id_entrada_categoria      Int
+  id_pagamento_entrada_tipo Int
+  id_usuario_info           Int
+  id_periodicidade          Int
+  valor                     Decimal   @db.Decimal(15, 2)
+  id_patrimonio_info        Int?
+  comprovante               Int?      @db.Oid
+  patrimonio_infoId         Int?
+
   entrada_categoria                                                entrada_categoria      @relation(fields: [id_entrada_categoria], references: [id], onDelete: Cascade, onUpdate: NoAction)
   entrada                                                          entrada                @relation(fields: [id_entrada], references: [id], onDelete: Cascade, onUpdate: NoAction)
   pagamento_entrada_tipo                                           pagamento_entrada_tipo @relation(fields: [id_pagamento_entrada_tipo], references: [id], onDelete: Cascade, onUpdate: NoAction)
   usuario_info_entrada_info_id_usuario_info_cadastroTousuario_info usuario_info           @relation("entrada_info_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: NoAction)
   usuario_info_entrada_info_id_usuario_infoTousuario_info          usuario_info           @relation("entrada_info_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: Cascade, onUpdate: NoAction)
   notificacao                                                      notificacao[]
+  patrimonio                                                       patrimonio_info?       @relation(fields: [patrimonio_infoId], references: [id])
 
   @@index([id_entrada], map: "idx_entrada_info_entrada")
   @@index([id_usuario_info], map: "idx_entrada_info_usuario")
@@ -151,6 +154,8 @@ model patrimonio_info {
   patrimonio               patrimonio               @relation(fields: [id_patrimonio], references: [id], onDelete: Cascade, onUpdate: NoAction)
   usuario_info             usuario_info             @relation(fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: NoAction)
   patrimonio_info_imagem   patrimonio_info_imagem[]
+  saida_info               saida_info[]
+  entrada_info             entrada_info[]
 
   @@index([id_patrimonio], map: "idx_patrimonio_info_patrimonio")
 }
@@ -197,28 +202,31 @@ model saida_categoria {
 }
 
 model saida_info {
-  id                                                             Int                  @id @default(autoincrement())
-  id_ativo                                                       Boolean
-  dthr_cadastro                                                  DateTime             @db.Timestamp(6)
-  dthr_saida                                                     DateTime?            @db.Timestamp(6)
-  id_saida_categoria                                             Int
-  id_pagamento_saida_tipo                                        Int
-  id_usuario_info_cadastro                                       Int
-  id_saida                                                       Int
-  id_info_ativo                                                  Boolean
-  id_saida_prioridade                                            Int
-  id_usuario_info                                                Int
-  id_periodicidade                                               Int
-  valor                                                          Decimal              @db.Decimal(15, 2)
-  id_patrimonio_info                                             Int?
-  comprovante                                                    Int?                 @db.Oid
-  notificacao                                                    notificacao[]
+  id                       Int           @id @default(autoincrement())
+  id_ativo                 Boolean
+  dthr_cadastro            DateTime      @db.Timestamp(6)
+  dthr_saida               DateTime?     @db.Timestamp(6)
+  id_saida_categoria       Int
+  id_pagamento_saida_tipo  Int
+  id_usuario_info_cadastro Int
+  id_saida                 Int
+  id_info_ativo            Boolean
+  id_saida_prioridade      Int
+  id_usuario_info          Int
+  id_periodicidade         Int
+  valor                    Decimal       @db.Decimal(15, 2)
+  id_patrimonio_info       Int?
+  comprovante              Int?          @db.Oid
+  notificacao              notificacao[]
+  patrimonio_infoId        Int?
+
   pagamento_saida_tipo                                           pagamento_saida_tipo @relation(fields: [id_pagamento_saida_tipo], references: [id], onDelete: Cascade, onUpdate: NoAction)
   saida_categoria                                                saida_categoria      @relation(fields: [id_saida_categoria], references: [id], onDelete: Cascade, onUpdate: NoAction)
   saida                                                          saida                @relation(fields: [id_saida], references: [id], onDelete: Cascade, onUpdate: NoAction)
   saida_prioridade                                               saida_prioridade     @relation(fields: [id_saida_prioridade], references: [id], onDelete: Cascade, onUpdate: NoAction)
   usuario_info_saida_info_id_usuario_info_cadastroTousuario_info usuario_info         @relation("saida_info_id_usuario_info_cadastroTousuario_info", fields: [id_usuario_info_cadastro], references: [id], onDelete: Cascade, onUpdate: NoAction)
   usuario_info_saida_info_id_usuario_infoTousuario_info          usuario_info         @relation("saida_info_id_usuario_infoTousuario_info", fields: [id_usuario_info], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  patrimonio                                                     patrimonio_info?     @relation(fields: [patrimonio_infoId], references: [id])
 
   @@index([id_saida], map: "idx_saida_info_saida")
   @@index([id_usuario_info], map: "idx_saida_info_usuario")

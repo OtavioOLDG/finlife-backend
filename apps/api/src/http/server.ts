@@ -33,6 +33,8 @@ import { getALlInvites } from "./routes/convites/getAllInvites";
 import { removePatrimonio } from "./routes/patrimonio/remove-patrimonio";
 import { getAllEquityUser } from "./routes/patrimonio/get-all-patrimonio";
 import { getAllEquityGroup } from "./routes/patrimonio/get-all-patrimonios-grupo";
+import { getEquityById } from "./routes/patrimonio/get-patrimonio";
+import { getAllMembersGroup } from "./routes/grupo-usuario/get-all-members";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -94,6 +96,9 @@ app.register(getEntradaCategoria)
 // rotas grupo financeiro
 app.register(createGrupoFinanceiro)
 
+// rotas grupo financeiro usuário
+app.register(getAllMembersGroup)
+
 // rotas notificação
 app.register(newNotification)
 app.register(getAllUserNotifications)
@@ -103,6 +108,7 @@ app.register(createEquity)
 app.register(removePatrimonio)
 app.register(getAllEquityUser)
 app.register(getAllEquityGroup)
+app.register(getEquityById)
 
 // rotas usuários
 app.register(createAccount)
