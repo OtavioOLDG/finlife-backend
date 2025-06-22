@@ -51,7 +51,8 @@ export async function getSaidas(app: FastifyInstance){
             }
 
             return reply.status(200).send({
-                saidas: saidaFound
+                saidas: saidaFound,
+                usuario: userFromId
             })
 
         }

@@ -48,7 +48,8 @@ export async function getAllEntradas(app: FastifyInstance){
 
 
             return reply.status(200).send({
-                entradas: foundEntradas
+                entradas: foundEntradas,
+                usuario: userFromId
             })
 
         }
