@@ -41,7 +41,6 @@ export async function createEntrada(app: FastifyInstance){
                     valor : z.any(),
                     id_patrimonio_info: z.number().nullish(),
                     comprovante: z.number().nullish(),
-                    patrimonio_infoId: z.number().nullish(),
                 }),
                 response: {
                     201: z.object({
@@ -72,7 +71,7 @@ export async function createEntrada(app: FastifyInstance){
         },
         async(request, reply) => {
             const userId = await request.getCurrentUserId()
-            const {nome,id_periodicidade,id_usuario_info,valor,id_patrimonio_info,patrimonio_infoId,id_entrada_categoria,id_pagamento_entrada_tipo,comprovante,dthr_entrada} = request.body
+            const {nome,id_periodicidade,id_usuario_info,valor,id_patrimonio_info,id_entrada_categoria,id_pagamento_entrada_tipo,comprovante,dthr_entrada} = request.body
 
             const userFromId = await prisma.usuario_info.findUnique({
                 include: {
@@ -118,10 +117,6 @@ export async function createEntrada(app: FastifyInstance){
 
                 if(id_patrimonio_info){
                     data.id_patrimonio_info = id_patrimonio_info
-                }
-
-                if(patrimonio_infoId){
-                    data.patrimonio_infoId = patrimonio_infoId
                 }
 
                 if(dthr_entrada){
