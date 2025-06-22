@@ -90,7 +90,7 @@ app.register(fastifySwaggerUi, {
     routePrefix: '/docs',
 })
 app.register(fastifyCors, {
-  origin: 'http://localhost:8000',    // porta do seu front
+  origin: 'http://localhost:3000',    // porta do seu front
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'],
   credentials: true      
