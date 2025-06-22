@@ -56,6 +56,7 @@ import { deleteSaida } from "./routes/saida/deleteSaida";
 import { deleteEntrada } from "./routes/entrada/delete-entrada";
 import { getSaidas } from "./routes/saida/get-all-saidas";
 import { getAllEntradas } from "./routes/entrada/get-entradas";
+import { editEquityUser } from "./routes/patrimonio/editar-patrimonio";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -149,6 +150,7 @@ app.register(removePatrimonio)
 app.register(getAllEquityUser)
 app.register(getAllEquityGroup)
 app.register(getEquityById)
+app.register(editEquityUser)
 
 // rotas usuários
 app.register(createAccount)
