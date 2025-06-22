@@ -61,7 +61,6 @@ export async function createEntrada(app: FastifyInstance){
                             valor: z.any(),
                             id_patrimonio_info: z.number().nullable(),
                             comprovante: z.number().nullable(),
-                            patrimonio_infoId: z.number().nullable(),
                             id_info_ativo: z.boolean(),
                             id_entrada: z.number(),
                         })
