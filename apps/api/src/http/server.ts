@@ -84,7 +84,10 @@ app.setErrorHandler(errorHandler)
 app.register(fastifySwaggerUi, {
     routePrefix: '/docs',
 })
-app.register(fastifyCors)
+app.register(fastifyCors, {
+  origin: ['http://localhost:8000']
+})
+
 app.register(fastifyJwt, {
     secret : env.JWT_SECRET
 })
