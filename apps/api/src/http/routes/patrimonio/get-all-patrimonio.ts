@@ -20,6 +20,13 @@ export async function getAllEquityUser(app: FastifyInstance){
                                 nome: z.string(),
                                 valor_aquisicao: z.any(),  // Agora, usaremos Decimal aqui
                             }),
+                            usuario_info: z.object({
+                                usuario: z.object({
+                                    nome: z.string(),
+                                    cpf: z.string(),
+                                }),
+                                email: z.string(),
+                            }),
                             id: z.number(),
                             id_ativo: z.boolean(),
                             dthr_cadastro: z.date(),
@@ -53,6 +60,17 @@ export async function getAllEquityUser(app: FastifyInstance){
                             select:{
                                 nome: true,
                                 valor_aquisicao: true
+                            }
+                        },
+                        usuario_info: {
+                            select: {
+                                email: true,
+                                usuario: {
+                                    select:{
+                                        cpf: true,
+                                        nome: true
+                                    }
+                                }
                             }
                         }
                     },

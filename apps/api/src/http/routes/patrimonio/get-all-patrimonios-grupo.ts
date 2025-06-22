@@ -20,12 +20,23 @@ export async function getAllEquityGroup(app: FastifyInstance){
                 response: {
                     201: z.object({
                         patrimonios: z.array(z.object({
+                            patrimonio: z.object({
+                                nome: z.string(),
+                                valor_aquisicao: z.any(),  // Agora, usaremos Decimal aqui
+                            }),
+                            usuario_info: z.object({
+                                usuario: z.object({
+                                    nome: z.string(),
+                                    cpf: z.string(),
+                                }),
+                                email: z.string(),
+                            }),
                             id: z.number(),
                             id_ativo: z.boolean(),
                             dthr_cadastro: z.date(),
                             id_usuario_info_cadastro: z.number(),
                             id_info_ativo: z.boolean(),
-                            valor_mercado: z.any(),
+                            valor_mercado: z.any(),  // Alterado para Decimal
                             id_patrimonio: z.number(),
                         })),
                     }),
@@ -68,6 +79,17 @@ export async function getAllEquityGroup(app: FastifyInstance){
                         select:{
                             nome: true,
                             valor_aquisicao: true
+                        }
+                    },
+                    usuario_info: {
+                        select: {
+                            email: true,
+                            usuario: {
+                                select:{
+                                    cpf: true,
+                                    nome: true
+                                }
+                            }
                         }
                     }
                 },
