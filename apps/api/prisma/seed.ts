@@ -131,6 +131,110 @@ async function seed() {
         throw new Error('Erro interno')
     }
 
+    const entradas_categoria = await prisma.entrada_categoria.createMany({
+        data: [
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Salário'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Renda Extra'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Venda De bens'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Premiações'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Reembolso'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Outras entradas'
+            },
+            
+        ]
+    })
+
+    if(!entradas_categoria){
+        throw new Error('Erro interno')
+    }
+
+
+    const saidas_categoria = await prisma.saida_categoria.createMany({
+        data: [
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Salário'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Renda Extra'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Venda De bens'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Premiações'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Reembolso'
+            },
+            {
+                dthr_cadastro: new Date(),
+                id_ativo: true,
+                id_patrimonial: false,
+                publico: true,
+                nome: 'Outras entradas'
+            },
+            
+        ]
+    })
+
+    if(!saidas_categoria){
+        throw new Error('Erro interno')
+    }
 
 }
 

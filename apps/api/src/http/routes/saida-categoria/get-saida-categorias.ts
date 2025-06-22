@@ -12,15 +12,26 @@ export async function getSaidaCategoria(app: FastifyInstance) {
                 summary: 'Usuário pega todoas as categorias de saída',
                 security: [{bearerAuth: []}],
                 response: {
-                    201: z.array(z.object({
-                        id: z.number(),
-                        nome: z.string(),
-                        dthr_cadastro: z.date(),
-                        id_ativo: z.boolean(),
-                        id_patrimonial: z.boolean(),
-                        id_usuario_info_cadastro: z.number().nullable(),
-                        id_grupo_financeiro: z.number().nullable()
-                    })),
+                    201: z.object({
+                        categoriasPadrao: z.array(z.object({
+                            id: z.number(),
+                            nome: z.string(),
+                            dthr_cadastro: z.date(),
+                            id_ativo: z.boolean(),
+                            id_patrimonial: z.boolean(),
+                            id_usuario_info_cadastro: z.number().nullable(),
+                            id_grupo_financeiro: z.number().nullable()
+                        })),
+                        categoriasDoUsuario: z.array(z.object({
+                            id: z.number(),
+                            nome: z.string(),
+                            dthr_cadastro: z.date(),
+                            id_ativo: z.boolean(),
+                            id_patrimonial: z.boolean(),
+                            id_usuario_info_cadastro: z.number().nullable(),
+                            id_grupo_financeiro: z.number().nullable()
+                        }))
+                    }),
                 }
             }
         },
@@ -52,7 +63,35 @@ export async function getSaidaCategoria(app: FastifyInstance) {
                 }
             })
 
-            return reply.status(201).send(createdSaidaCategoria)
+            if(!createdSaidaCategoria){
+                throw new BadRequestError('Erro ao pegar categorias')
+            }
+
+            const categoriasPadrao = await prisma.saida_categoria.findMany({
+                select: {
+                    id: true,
+                    id_grupo_financeiro: true,
+                    id_ativo: true,
+                    id_patrimonial: true,
+                    id_usuario_info_cadastro: true,
+                    nome: true,
+                    dthr_cadastro: true,
+                },
+                where: {
+                    id_ativo: true,
+                    publico: true
+                }
+            })
+
+            if(!categoriasPadrao){
+                throw new BadRequestError('Erro ao pegar categorias')
+            }
+
+
+            return reply.status(201).send({
+                categoriasPadrao: categoriasPadrao, 
+                categoriasDoUsuario: createdSaidaCategoria
+            })
         }
     )
 }
