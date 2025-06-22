@@ -16,6 +16,7 @@ export async function getSaidaPrioridade(app: FastifyInstance){
                 response: {
                     201: z.object({
                             saidas : z.array(z.object({
+                                id: z.number(),
                                 id_ativo: z.boolean(),
                                 dthr_cadastro: z.date(),
                                 id_usuario_info_cadastro: z.number().nullable(),
@@ -23,6 +24,7 @@ export async function getSaidaPrioridade(app: FastifyInstance){
                                 nivel: z.number(),
                             })),
                             saidasPublicas: z.array(z.object({
+                                id: z.number(),
                                 id_ativo: z.boolean(),
                                 dthr_cadastro: z.date(),
                                 id_usuario_info_cadastro: z.number().nullable(),
@@ -62,6 +64,7 @@ export async function getSaidaPrioridade(app: FastifyInstance){
                     id_ativo: true,
                     dthr_cadastro: true,
                     nivel: true,
+                    id: true
                 },
                 where: {
                     publico: true,
@@ -80,6 +83,7 @@ export async function getSaidaPrioridade(app: FastifyInstance){
                     id_ativo: true,
                     dthr_cadastro: true,
                     nivel: true,
+                    id: true
                 },
                 where: {
                     id_ativo: true,
