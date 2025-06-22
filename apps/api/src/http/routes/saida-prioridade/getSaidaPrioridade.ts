@@ -10,18 +10,25 @@ import { auth } from '../../middleware/auth'
 export async function getSaidaPrioridade(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).get('/saida-prioridade', {
             schema:{
-                tags: ['Usuários'],
+                tags: ['Saída Prioridade'],
                 summary: 'Pega as saídas prioridade',
                 security: [{bearerAuth: []}],
                 response: {
                     201: z.object({
-                        saidas : z.array(z.object({
-                            id_ativo: z.boolean(),
-                            dthr_cadastro: z.date(),
-                            id_usuario_info_cadastro: z.number(),
-                            nome: z.string(),
-                            nivel: z.number(),
-                        }))
+                            saidas : z.array(z.object({
+                                id_ativo: z.boolean(),
+                                dthr_cadastro: z.date(),
+                                id_usuario_info_cadastro: z.number().nullable(),
+                                nome: z.string(),
+                                nivel: z.number(),
+                            })),
+                            saidasPublicas: z.array(z.object({
+                                id_ativo: z.boolean(),
+                                dthr_cadastro: z.date(),
+                                id_usuario_info_cadastro: z.number().nullable(),
+                                nome: z.string(),
+                                nivel: z.number(),
+                            }))
                     }),
                 }
             }
@@ -48,6 +55,24 @@ export async function getSaidaPrioridade(app: FastifyInstance){
                 throw new BadRequestError('Erro ao procurar usuário')
             }
 
+            const saidasPublicas = await prisma.saida_prioridade.findMany({
+                select: {
+                    nome: true,
+                    id_usuario_info_cadastro: true,
+                    id_ativo: true,
+                    dthr_cadastro: true,
+                    nivel: true,
+                },
+                where: {
+                    publico: true,
+                    id_ativo: true,
+                },
+            })
+
+            if(!saidasPublicas){
+                throw new BadRequestError('Erro ao remover usuário')
+            }
+
             const saidas = await prisma.saida_prioridade.findMany({
                 select: {
                     nome: true,
@@ -62,12 +87,14 @@ export async function getSaidaPrioridade(app: FastifyInstance){
                 },
             })
 
-
             if(!saidas){
                 throw new BadRequestError('Erro ao remover usuário')
             }
 
-            return reply.status(201).send({saidas: saidas})
+            return reply.status(201).send({
+                saidas: saidas,
+                saidasPublicas: saidasPublicas
+            })
         }
     )
 }

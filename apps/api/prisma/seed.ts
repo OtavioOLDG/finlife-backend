@@ -15,30 +15,35 @@ async function seed() {
                 dthr_cadastro: new Date(),
                 nome: 'Desnecessário',
                 nivel: 1,
+                publico: true
             },
             {
                 id_ativo: true,
                 dthr_cadastro: new Date(),
                 nome: 'Supérfluo',
                 nivel: 2,
+                publico: true
             },
             {
                 id_ativo: true,
                 dthr_cadastro: new Date(),
                 nome: 'Moderado',
                 nivel: 3,
+                publico: true
             },
             {
                 id_ativo: true,
                 dthr_cadastro: new Date(),
                 nome: 'Importante',
                 nivel: 4,
+                publico: true
             },
             {
                 id_ativo: true,
                 dthr_cadastro: new Date(),
                 nome: 'Essencial',
                 nivel: 5,
+                publico: true
             },
         ]
     })

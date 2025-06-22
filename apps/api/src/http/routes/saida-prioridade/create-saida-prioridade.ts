@@ -9,7 +9,7 @@ import { auth } from '../../middleware/auth'
 export async function createSaidaPrioridade(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).post('/saida-prioridade', {
             schema:{
-                tags: ['Saída prioridade'],
+                tags: ['Saída Prioridade'],
                 summary: 'Criar nova saída prioridade',
                 security: [{bearerAuth : []}],
                 body: z.object({
@@ -23,7 +23,7 @@ export async function createSaidaPrioridade(app: FastifyInstance){
                         dthr_cadastro: z.date(),
                         id_ativo: z.boolean(),
                         id: z.number(),
-                        id_usuario_info_cadastro: z.number(),
+                        id_usuario_info_cadastro: z.number().nullable(),
                     }),
                 }
             }
@@ -42,7 +42,8 @@ export async function createSaidaPrioridade(app: FastifyInstance){
                     nivel: nivel,
                     id_usuario_info_cadastro: userId,
                     id_ativo: true,
-                    dthr_cadastro: new Date()
+                    dthr_cadastro: new Date(),
+                    publico: false
                 }
             })
 
