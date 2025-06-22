@@ -8,15 +8,12 @@ import { Decimal } from '../../../generated/prisma/runtime/library'
 import { auth } from '../../middleware/auth'
 import { string } from 'zod/v4'
 
-export async function getSaida(app: FastifyInstance){
-    app.withTypeProvider<ZodTypeProvider>().register(auth).get('/saida/:id', {
+export async function getAllEntradas(app: FastifyInstance){
+    app.withTypeProvider<ZodTypeProvider>().register(auth).get('/entradas', {
             schema:{
-                tags: ['Saída'],
-                summary: 'Pega uma saída',
+                tags: ['Entrada'],
+                summary: 'Pega todas as entradas do usuário',
                 security: [{bearerAuth: []}],
-                params: z.object({
-                    id: z.coerce.number()
-                }),
             }
         },
         async(request, reply) => {
@@ -35,25 +32,23 @@ export async function getSaida(app: FastifyInstance){
                 throw new BadRequestError('Usuário não encontrado')
             }
 
-            const {id} = request.params
-
-            const saidaFound = await prisma.saida_info.findFirst({
+            const foundEntradas = await prisma.entrada_info.findMany({
                 include: {
-                    saida: true
+                    entrada: true
                 },
                 where: {
-                    id: id,
                     id_ativo: true,
-                    id_usuario_info_cadastro: userId
+                    id_info_ativo: true,
+                    OR: [{
+                        id_usuario_info_cadastro: userId,
+                        id_usuario_info: userId
+                    }]
                 }
             })
 
-            if(!saidaFound){
-                throw new BadRequestError('Erro ao buscar saída')
-            }
 
             return reply.status(200).send({
-                saidaProcurada: saidaFound
+                entradas: foundEntradas
             })
 
         }

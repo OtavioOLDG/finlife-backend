@@ -8,15 +8,12 @@ import { Decimal } from '../../../generated/prisma/runtime/library'
 import { auth } from '../../middleware/auth'
 import { string } from 'zod/v4'
 
-export async function getSaida(app: FastifyInstance){
-    app.withTypeProvider<ZodTypeProvider>().register(auth).get('/saida/:id', {
+export async function getSaidas(app: FastifyInstance){
+    app.withTypeProvider<ZodTypeProvider>().register(auth).get('/saidas', {
             schema:{
                 tags: ['Saída'],
-                summary: 'Pega uma saída',
+                summary: 'Pega todas as saídas do usuário',
                 security: [{bearerAuth: []}],
-                params: z.object({
-                    id: z.coerce.number()
-                }),
             }
         },
         async(request, reply) => {
@@ -35,16 +32,17 @@ export async function getSaida(app: FastifyInstance){
                 throw new BadRequestError('Usuário não encontrado')
             }
 
-            const {id} = request.params
-
-            const saidaFound = await prisma.saida_info.findFirst({
+            const saidaFound = await prisma.saida_info.findMany({
                 include: {
                     saida: true
                 },
                 where: {
-                    id: id,
                     id_ativo: true,
-                    id_usuario_info_cadastro: userId
+                    id_info_ativo: true,
+                    OR: [{
+                        id_usuario_info_cadastro: userId,
+                        id_usuario_info: userId
+                    }]
                 }
             })
 
@@ -53,7 +51,7 @@ export async function getSaida(app: FastifyInstance){
             }
 
             return reply.status(200).send({
-                saidaProcurada: saidaFound
+                saidas: saidaFound
             })
 
         }

@@ -52,6 +52,10 @@ import { getAllSaidaGroup } from "./routes/saida/get-all-group-outcomes";
 import { metadata } from "./routes/metadata/prices";
 import { getAllTiposEntrada } from "./routes/pagamento-entrada-tipo/get-all";
 import { getAllTiposSaida } from "./routes/pagamento-saida-tipo/get-all-saidas";
+import { deleteSaida } from "./routes/saida/deleteSaida";
+import { deleteEntrada } from "./routes/entrada/delete-entrada";
+import { getSaidas } from "./routes/saida/get-all-saidas";
+import { getAllEntradas } from "./routes/entrada/get-entradas";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -113,6 +117,8 @@ app.register(getALlInvites)
 app.register(createEntrada)
 app.register(getAllEntradasGroup)
 app.register(getEntrada)
+app.register(deleteEntrada)
+app.register(getAllEntradas)
 
 // rotas entrada categoria
 app.register(createEntradaCategoria)
@@ -155,6 +161,8 @@ app.register(removeUser)
 app.register(createSaida)
 app.register(getSaida)
 app.register(getAllSaidaGroup)
+app.register(deleteSaida)
+app.register(getSaidas)
 
 // rotas saída categoria
 app.register(createSaidaCategoria)
