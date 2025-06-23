@@ -119,7 +119,10 @@ export async function createSaida(app: FastifyInstance){
                     throw new BadRequestError('Erro ao criar saída')
                 }
 
+
                 data.id_saida = createdSaida.id
+
+                
 
                 const createdSaidaInfo = await prisma.saida_info.create({
                     data: {

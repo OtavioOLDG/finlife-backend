@@ -51,13 +51,18 @@ export async function getAllEntradasGroup(app: FastifyInstance){
                             email: true,
                             id: true,
                         }
+                    },
+                    entrada: {
+                        select:{
+                            nome:true
+                        }
                     }
                 },
                 where: {
                     id_ativo: true,
                     usuario_info_entrada_info_id_usuario_info_cadastroTousuario_info:{
-                        grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info:{
-                            some: {
+                        grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_infoTousuario_info:{
+                            some:{
                                 id_grupo_financeiro: grupoFinanceiro.id
                             }
                         }
