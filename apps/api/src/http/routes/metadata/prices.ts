@@ -55,7 +55,7 @@ export async function metadata(app: FastifyInstance){
                     id_ativo: true,
                     id_info_ativo: true,
                     id_usuario_info: userId,
-                    dthr_saida: {
+                    dthr_cadastro: {
                         gte: inicioDoMes,
                         lte: fimDoMes,
                     },
@@ -89,7 +89,7 @@ export async function metadata(app: FastifyInstance){
                     id_ativo: true,
                     id_info_ativo: true,
                     id_usuario_info: userId,
-                    dthr_entrada: {
+                    dthr_cadastro: {
                         gte: inicioDoMes,
                         lte: fimDoMes,
                     }
@@ -125,12 +125,10 @@ export async function metadata(app: FastifyInstance){
                 const entradasGrupo = await prisma.entrada_info.findMany({
                     where: {
                         id_ativo: true,
-                        usuario_info_entrada_info_id_usuario_infoTousuario_info: {
-                            id_ativo:true,
-                            id_info_ativo: true,
-                            grupo_financeiro: {
-                                some: {
-                                    id: grupoFinanceiro.id,
+                        usuario_info_entrada_info_id_usuario_info_cadastroTousuario_info:{
+                            grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_infoTousuario_info:{
+                                some:{
+                                    id_grupo_financeiro: grupoFinanceiro.id
                                 }
                             }
                         }
@@ -140,16 +138,14 @@ export async function metadata(app: FastifyInstance){
                 const entradasGrupoMes = await prisma.entrada_info.findMany({
                     where: {
                         id_ativo: true,
-                        dthr_entrada: {
+                        dthr_cadastro: {
                             gte: inicioDoMes,
                             lte: fimDoMes,
                         },
-                        usuario_info_entrada_info_id_usuario_infoTousuario_info: {
-                            id_ativo:true,
-                            id_info_ativo: true,
-                            grupo_financeiro: {
-                                some: {
-                                    id: grupoFinanceiro.id,
+                        usuario_info_entrada_info_id_usuario_info_cadastroTousuario_info:{
+                            grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_infoTousuario_info:{
+                                some:{
+                                    id_grupo_financeiro: grupoFinanceiro.id
                                 }
                             }
                         }
@@ -172,12 +168,12 @@ export async function metadata(app: FastifyInstance){
                 const gastosGrupoT = await prisma.saida_info.findMany({
                     where:{
                         id_ativo: true,
-                        usuario_info_saida_info_id_usuario_infoTousuario_info: {
+                        usuario_info_saida_info_id_usuario_info_cadastroTousuario_info:{
                             id_ativo:true,
                             id_info_ativo: true,
-                            grupo_financeiro: {
+                            grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_infoTousuario_info:{
                                 some: {
-                                    id: grupoFinanceiro.id,
+                                    id_grupo_financeiro: grupoFinanceiro.id
                                 }
                             }
                         }
@@ -187,16 +183,16 @@ export async function metadata(app: FastifyInstance){
                 const gastosGrupoMes = await prisma.saida_info.findMany({
                     where:{
                         id_ativo: true,
-                        dthr_saida: {
+                        dthr_cadastro: {
                             gte: inicioDoMes,
                             lte: fimDoMes,
                         },
-                        usuario_info_saida_info_id_usuario_infoTousuario_info: {
+                        usuario_info_saida_info_id_usuario_info_cadastroTousuario_info:{
                             id_ativo:true,
                             id_info_ativo: true,
-                            grupo_financeiro: {
+                            grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_infoTousuario_info:{
                                 some: {
-                                    id: grupoFinanceiro.id,
+                                    id_grupo_financeiro: grupoFinanceiro.id
                                 }
                             }
                         }
