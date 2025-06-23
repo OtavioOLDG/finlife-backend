@@ -70,7 +70,7 @@ FinLife é uma plataforma web projetada para simplificar o controle de finanças
 - **Histórias de Usuário**  
   [Miro Board – User Stories](https://miro.com/welcomeonboard/YmZNckIyZ0UzNVBNbmNMUDVvMVR6eXdUaXJBeTQyeVV3aXB5azhZcXpVeEJWbStDNG9HNkFneGhxR01nUk1Oak92U3VyKzZkWFJxeDRoY2lEdm80V211cEU3cWFEWld6eUEremYxTklmZUVQTzJKaVljUnhOUTZLek1SR21HaUNBS2NFMDFkcUNFSnM0d3FEN050ekl3PT0hdjE=?share_link_id=499902744224)  
 - **Diagrama de Classes**  
-  [Lucidchart – Class Diagram](https://lucid.app/…)  
+  [Google Docs](https://docs.google.com/document/d/1FXgwqV_8-pH1Po8WIB9tXPwww4vOPF9eppjxQYNiZfk/edit?usp=sharing)  
 - **Protótipo de Interface**  
   [Figma – FinLife UI](https://www.figma.com/design/CeBSBMO7GZ3Dy7tO3JltBe/FinLife?node-id=0-1&t=70AvK61Lo0IRvH0F-1)  
 - **Matriz de Rastreabilidade**  
