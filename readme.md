@@ -66,9 +66,9 @@ FinLife é uma plataforma web projetada para simplificar o controle de finanças
 ## Links Importantes
 
 - **Diagrama de Caso de Uso**  
-  [Casos de uso](https://miro.com/welcomeonboard/ZFlxMnBCbHVuU0lnTXZlN2JLS0JlaEEvVmgvZjMwV09rODRPYUIrdnJUbllYVnFFRjlUczdNQWN2eU5wamhSZzJTR1NlS01XWGJQQ3hPZ1NRZGhWWFd1cEU3cWFEWld6eUEremYxTklmZUZNbGhNZVJNdnV3YUFoUXRBK3BtOU1yVmtkMG5hNDA3dVlncnBvRVB2ZXBnPT0hdjE=?share_link_id=684704829134)  
+  [Casos de uso](https://miro.com/app/board/uXjVIlu3EuI=/?share_link_id=142613026777)  
 - **Histórias de Usuário**  
-  [Miro Board – User Stories](https://miro.com/welcomeonboard/YmZNckIyZ0UzNVBNbmNMUDVvMVR6eXdUaXJBeTQyeVV3aXB5azhZcXpVeEJWbStDNG9HNkFneGhxR01nUk1Oak92U3VyKzZkWFJxeDRoY2lEdm80V211cEU3cWFEWld6eUEremYxTklmZUVQTzJKaVljUnhOUTZLek1SR21HaUNBS2NFMDFkcUNFSnM0d3FEN050ekl3PT0hdjE=?share_link_id=499902744224)  
+  [Miro Board – User Stories](https://miro.com/app/board/uXjVIlu7S9k=/?share_link_id=531229549898)  
 - **Diagrama de Classes**  
   [Google Docs](https://docs.google.com/document/d/1FXgwqV_8-pH1Po8WIB9tXPwww4vOPF9eppjxQYNiZfk/edit?usp=sharing)  
 - **Protótipo de Interface**  
