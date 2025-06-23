@@ -66,19 +66,17 @@ FinLife é uma plataforma web projetada para simplificar o controle de finanças
 ## Links Importantes
 
 - **Diagrama de Caso de Uso**  
-  [Lucidchart – Use Cases](https://lucid.app/…)  
+  [Casos de uso](https://miro.com/welcomeonboard/ZFlxMnBCbHVuU0lnTXZlN2JLS0JlaEEvVmgvZjMwV09rODRPYUIrdnJUbllYVnFFRjlUczdNQWN2eU5wamhSZzJTR1NlS01XWGJQQ3hPZ1NRZGhWWFd1cEU3cWFEWld6eUEremYxTklmZUZNbGhNZVJNdnV3YUFoUXRBK3BtOU1yVmtkMG5hNDA3dVlncnBvRVB2ZXBnPT0hdjE=?share_link_id=684704829134)  
 - **Histórias de Usuário**  
-  [Miro Board – User Stories](https://miro.com/…)  
+  [Miro Board – User Stories](https://miro.com/welcomeonboard/YmZNckIyZ0UzNVBNbmNMUDVvMVR6eXdUaXJBeTQyeVV3aXB5azhZcXpVeEJWbStDNG9HNkFneGhxR01nUk1Oak92U3VyKzZkWFJxeDRoY2lEdm80V211cEU3cWFEWld6eUEremYxTklmZUVQTzJKaVljUnhOUTZLek1SR21HaUNBS2NFMDFkcUNFSnM0d3FEN050ekl3PT0hdjE=?share_link_id=499902744224)  
 - **Diagrama de Classes**  
   [Lucidchart – Class Diagram](https://lucid.app/…)  
 - **Protótipo de Interface**  
-  [Figma – FinLife UI](https://www.figma.com/…)  
-- **Gestão de Projeto**  
-  [MeisterTask – Backlog & Tarefas](https://www.meistertask.com/…)  
+  [Figma – FinLife UI]([https://www.figma.com/…](https://www.figma.com/design/CeBSBMO7GZ3Dy7tO3JltBe/FinLife?node-id=0-1&t=70AvK61Lo0IRvH0F-1))  
 - **Matriz de Rastreabilidade**  
-  [Google Sheets – Traceability Matrix](https://docs.google.com/…)  
+  [Google Sheets – Traceability Matrix]([https://docs.google.com/…](https://docs.google.com/spreadsheets/d/1CDMzlwXZCNnG7dz8DZwCC_IXwZ0mjjfsBBgIlziMgJY/edit?usp=sharing))  
 - **Regras de Negócio**  
-  [Google Docs – Business Rules](https://docs.google.com/…)  
+  [Google Docs – Business Rules]([https://docs.google.com/…](https://docs.google.com/document/d/1OOxGUkHQ4Y-eeu99FjhLJdpIc7QMqEL3HWRGNNtck40/edit?usp=sharing))  
 
 ## Conclusão
 
