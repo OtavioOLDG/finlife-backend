@@ -56,6 +56,15 @@ export async function getAllSaidaGroup(app: FastifyInstance){
                         select:{
                             nome: true
                         }
+                    },
+                    patrimonio:{
+                        select:{
+                            patrimonio:{
+                                select:{
+                                    nome: true
+                                }
+                            }
+                        }
                     }
                 },
                 where: {

@@ -34,7 +34,16 @@ export async function getSaidas(app: FastifyInstance){
 
             const saidaFound = await prisma.saida_info.findMany({
                 include: {
-                    saida: true
+                    saida: true,
+                    patrimonio:{
+                            select:{
+                                patrimonio:{
+                                    select:{
+                                        nome: true
+                                    }
+                                }
+                            }
+                    }
                 },
                 where: {
                     id_ativo: true,

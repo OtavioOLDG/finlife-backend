@@ -34,7 +34,16 @@ export async function getAllEntradas(app: FastifyInstance){
 
             const foundEntradas = await prisma.entrada_info.findMany({
                 include: {
-                    entrada: true
+                    entrada: true,
+                    patrimonio:{
+                        select:{
+                            patrimonio:{
+                                select:{
+                                    nome: true
+                                }
+                            }
+                        }
+                    }
                 },
                 where: {
                     id_ativo: true,

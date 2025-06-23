@@ -17,7 +17,7 @@ export async function editEquityUser(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().register(auth).patch('/patrimonio/:id', {
             schema:{
                 tags: ['Patrimônio'],
-                summary: 'Pega todos os patrimônios do usuário',
+                summary: 'Atualiza patrimônios do usuário',
                 security: [{bearerAuth: []}],
                 params: z.object({
                     id: z.coerce.number()

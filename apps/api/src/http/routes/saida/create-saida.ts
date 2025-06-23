@@ -42,31 +42,31 @@ export async function createSaida(app: FastifyInstance){
                     valor: z.coerce.number(),
                     id_patrimonio_info: z.number().nullish(),
                 }),
-                response: {
-                    201: z.object({
-                        saida: z.object({
-                            id: z.number(),
-                            nome: z.string(),
-                        }),
-                        saidaInfo: z.object({
-                            id: z.number(),
-                            id_ativo: z.boolean(),
-                            dthr_cadastro: z.date(),
-                            id_usuario_info_cadastro: z.number(),
-                            id_usuario_info: z.number(),
-                            dthr_saida: z.date().nullable(),
-                            id_saida_categoria: z.number(),
-                            id_pagamento_saida_tipo: z.number(),
-                            id_saida_prioridade: z.number(),
-                            id_periodicidade: z.number(),
-                            valor: z.any(),
-                            id_patrimonio_info: z.number().nullable(),
-                            id_info_ativo: z.boolean(),
-                            comprovante: z.number().nullable(),
-                            id_saida: z.number(),
-                        })
-                    }),
-                }
+                // response: {
+                //     201: z.object({
+                //         saida: z.object({
+                //             id: z.number(),
+                //             nome: z.string(),
+                //         }),
+                //         saidaInfo: z.object({
+                //             id: z.number(),
+                //             id_ativo: z.boolean(),
+                //             dthr_cadastro: z.date(),
+                //             id_usuario_info_cadastro: z.number(),
+                //             id_usuario_info: z.number(),
+                //             dthr_saida: z.date().nullable(),
+                //             id_saida_categoria: z.number(),
+                //             id_pagamento_saida_tipo: z.number(),
+                //             id_saida_prioridade: z.number(),
+                //             id_periodicidade: z.number(),
+                //             valor: z.any(),
+                //             id_patrimonio_info: z.number().nullable(),
+                //             id_info_ativo: z.boolean(),
+                //             comprovante: z.number().nullable(),
+                //             id_saida: z.number(),
+                //         })
+                //     }),
+                // }
             }
         },
         async(request, reply) => {
@@ -136,7 +136,19 @@ export async function createSaida(app: FastifyInstance){
                         id_saida_categoria: data.id_saida_categoria,
                         id_saida_prioridade: data.id_saida_prioridade,
                         id_usuario_info: data.id_usuario_info,
-                        id_usuario_info_cadastro: data.id_usuario_info_cadastro
+                        id_usuario_info_cadastro: data.id_usuario_info_cadastro,
+                        id_patrimonio_info: data.id_patrimonio_info
+                    },
+                    include:{
+                        patrimonio:{
+                            select:{
+                                patrimonio:{
+                                    select:{
+                                        nome: true
+                                    }
+                                }
+                            }
+                        }
                     }
                 })
 

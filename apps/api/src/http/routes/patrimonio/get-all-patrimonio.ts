@@ -8,7 +8,7 @@ import { Decimal } from '../../../generated/prisma/runtime/library'
 import { auth } from '../../middleware/auth'
 
 export async function getAllEquityUser(app: FastifyInstance){
-    app.withTypeProvider<ZodTypeProvider>().register(auth).post('/patrimonios', {
+    app.withTypeProvider<ZodTypeProvider>().register(auth).get('/patrimonios', {
             schema:{
                 tags: ['Patrimônio'],
                 summary: 'Pega todos os patrimônios do usuário',
@@ -72,7 +72,9 @@ export async function getAllEquityUser(app: FastifyInstance){
                                     }
                                 }
                             }
-                        }
+                        },
+                        entrada_info: true,
+                        saida_info: true,
                     },
                     where: {
                         id_usuario_info_cadastro: userId,

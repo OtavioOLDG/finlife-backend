@@ -19,7 +19,7 @@ interface EntradaInfo{
     id_pagamento_entrada_tipo: number,
     id_usuario_info          : number,
     id_periodicidade         : number,
-    valor : any,
+    valor : number,
     id_patrimonio_info?: number,
     comprovante       ?: number,
     patrimonio_infoId ?: number,
@@ -34,13 +34,13 @@ export async function createEntrada(app: FastifyInstance){
                 body: z.object({
                     nome: z.string(),
                     dthr_entrada: z.date().nullish(),
-                    id_entrada_categoria     : z.number(),
-                    id_pagamento_entrada_tipo: z.number(),
-                    id_usuario_info          : z.number(),
-                    id_periodicidade         : z.number(),
+                    id_entrada_categoria     : z.coerce.number(),
+                    id_pagamento_entrada_tipo: z.coerce.number(),
+                    id_usuario_info          : z.coerce.number(),
+                    id_periodicidade         : z.coerce.number(),
                     valor : z.any(),
-                    id_patrimonio_info: z.number().nullish(),
-                    comprovante: z.number().nullish(),
+                    id_patrimonio_info: z.coerce.number().nullish(),
+                    comprovante: z.coerce.number().nullish(),
                 }),
                 response: {
                     201: z.object({
@@ -85,8 +85,21 @@ export async function createEntrada(app: FastifyInstance){
                 throw new BadRequestError('Usuário não encontrado')
             }
 
+            
 
             const result = await prisma.$transaction(async (tx) => {
+                const data : EntradaInfo = {
+                    dthr_cadastro: new Date(),
+                    id_usuario_info_cadastro: userId,
+                    id_usuario_info,
+                    valor: Number(valor),
+                    id_ativo: true,
+                    id_entrada: 1,
+                    id_info_ativo: true,
+                    id_entrada_categoria: id_entrada_categoria,
+                    id_pagamento_entrada_tipo: id_pagamento_entrada_tipo,
+                    id_periodicidade: id_periodicidade,
+                }
                 const createdEntrada = await prisma.entrada.create({
                     data: {
                         nome
@@ -97,17 +110,12 @@ export async function createEntrada(app: FastifyInstance){
                     throw new BadRequestError('Erro ao criar saída')
                 }
 
-                const data : EntradaInfo = {
-                    dthr_cadastro: new Date(),
-                    id_usuario_info_cadastro: userId,
-                    id_usuario_info,
-                    valor,
-                    id_ativo: true,
-                    id_info_ativo: true,
-                    id_entrada: createdEntrada.id,
-                    id_entrada_categoria: id_entrada_categoria,
-                    id_pagamento_entrada_tipo: id_pagamento_entrada_tipo,
-                    id_periodicidade: id_periodicidade,
+                if(createdEntrada){
+                    const idasda = await createdEntrada.id
+                    if(idasda === undefined){
+                        throw new BadRequestError('Erro')
+                    }
+                    data.id_entrada = idasda
                 }
 
                 if(comprovante){
@@ -124,7 +132,32 @@ export async function createEntrada(app: FastifyInstance){
 
 
                 const createdEntradaInfo = await prisma.entrada_info.create({
-                    data: data
+                    data: {
+                        dthr_cadastro: data.dthr_cadastro,
+                        id_ativo: data.id_ativo,
+                        dthr_entrada: data.dthr_entrada,
+                        id_info_ativo: data.id_info_ativo,
+                        id_periodicidade: data.id_periodicidade,
+                        valor: data.valor,
+                        comprovante: data.comprovante,
+                        id_entrada: data.id_entrada,
+                        id_entrada_categoria: data.id_entrada_categoria,
+                        id_pagamento_entrada_tipo: data.id_pagamento_entrada_tipo,
+                        id_usuario_info: data.id_usuario_info,
+                        id_usuario_info_cadastro: data.id_usuario_info_cadastro,
+                        id_patrimonio_info: data.id_patrimonio_info
+                    },
+                    include:{
+                        patrimonio:{
+                            select:{
+                                patrimonio:{
+                                    select:{
+                                        nome: true
+                                    }
+                                }
+                            }
+                        }
+                    }
                 })
 
                 if(!createdEntradaInfo){

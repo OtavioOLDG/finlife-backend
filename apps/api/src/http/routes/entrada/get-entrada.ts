@@ -37,9 +37,19 @@ export async function getEntrada(app: FastifyInstance){
 
             const {id} = request.params
 
-            const entradaFound = prisma.entrada_info.findFirst({
+            const entradaFound = await prisma.entrada_info.findFirst({
                 include: {
-                    entrada: true
+                    entrada: true,
+                        patrimonio:{
+                            select:{
+                                patrimonio:{
+                                    select:{
+                                        nome: true
+                                    }
+                                }
+                            }
+                        }
+
                 },
                 where: {
                     id: id,
