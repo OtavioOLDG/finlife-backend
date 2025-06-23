@@ -97,9 +97,9 @@ export async function getAllEquityGroup(app: FastifyInstance){
                     id_ativo: true,
                     id_info_ativo: true,
                     usuario_info: {
-                        grupo_financeiro: {
+                        grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_infoTousuario_info:{
                             some: {
-                                id:grupoFinanceiro.id
+                                id_grupo_financeiro: grupoFinanceiro.id
                             }
                         }
                     }

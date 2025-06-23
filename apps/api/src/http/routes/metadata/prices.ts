@@ -46,7 +46,7 @@ export async function metadata(app: FastifyInstance){
                     id_usuario_info: userId
                 }
             })
-
+            
             const inicioDoMes = dayjs().startOf('month').toDate();  // Ex: 2025-06-01T00:00:00.000Z
             const fimDoMes    = dayjs().endOf('month').toDate();    // Ex: 2025-06-30T23:59:59.999Z
 
@@ -131,13 +131,6 @@ export async function metadata(app: FastifyInstance){
                             grupo_financeiro: {
                                 some: {
                                     id: grupoFinanceiro.id,
-                                    grupo_financeiro_usuario: {
-                                        some: {
-                                            id_ativo: true,
-                                            id_grupo_financeiro: grupoFinanceiro.id
-                                        }
-                                    }
-
                                 }
                             }
                         }
@@ -157,13 +150,6 @@ export async function metadata(app: FastifyInstance){
                             grupo_financeiro: {
                                 some: {
                                     id: grupoFinanceiro.id,
-                                    grupo_financeiro_usuario: {
-                                        some: {
-                                            id_ativo: true,
-                                            id_grupo_financeiro: grupoFinanceiro.id
-                                        }
-                                    }
-
                                 }
                             }
                         }
@@ -192,13 +178,6 @@ export async function metadata(app: FastifyInstance){
                             grupo_financeiro: {
                                 some: {
                                     id: grupoFinanceiro.id,
-                                    grupo_financeiro_usuario: {
-                                        some: {
-                                            id_ativo: true,
-                                            id_grupo_financeiro: grupoFinanceiro.id
-                                        }
-                                    }
-
                                 }
                             }
                         }
@@ -218,13 +197,6 @@ export async function metadata(app: FastifyInstance){
                             grupo_financeiro: {
                                 some: {
                                     id: grupoFinanceiro.id,
-                                    grupo_financeiro_usuario: {
-                                        some: {
-                                            id_ativo: true,
-                                            id_grupo_financeiro: grupoFinanceiro.id
-                                        }
-                                    }
-
                                 }
                             }
                         }

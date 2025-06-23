@@ -55,10 +55,10 @@ export async function getAllEntradasGroup(app: FastifyInstance){
                 },
                 where: {
                     id_ativo: true,
-                    usuario_info_entrada_info_id_usuario_info_cadastroTousuario_info: {
-                        grupo_financeiro: {
+                    usuario_info_entrada_info_id_usuario_info_cadastroTousuario_info:{
+                        grupo_financeiro_usuario_grupo_financeiro_usuario_id_usuario_info_cadastroTousuario_info:{
                             some: {
-                                id: grupoFinanceiro.id
+                                id_grupo_financeiro: grupoFinanceiro.id
                             }
                         }
                     }
