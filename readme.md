@@ -77,6 +77,8 @@ FinLife é uma plataforma web projetada para simplificar o controle de finanças
   [Google Sheets](https://docs.google.com/spreadsheets/d/1CDMzlwXZCNnG7dz8DZwCC_IXwZ0mjjfsBBgIlziMgJY/edit?usp=sharing) 
 - **Regras de Negócio**  
   [Google Docs](https://docs.google.com/document/d/1OOxGUkHQ4Y-eeu99FjhLJdpIc7QMqEL3HWRGNNtck40/edit?usp=sharing)
+- **Rotas da API**  
+  [Google Docs](https://docs.google.com/document/d/1-X8BR-9iw01J2jaTLTOHhzBhkZP-Z4BW8XRDm4tz9dY/edit?usp=sharing)
 
 ## Conclusão
 
