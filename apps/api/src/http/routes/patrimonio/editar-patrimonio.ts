@@ -8,7 +8,7 @@ import { Decimal } from '../../../generated/prisma/runtime/library'
 import { auth } from '../../middleware/auth'
 
 interface Data {
-    nome?: string,
+    // nome?: string,
     valor_aquisicao?: number
     valor_mercado?: number
 }
@@ -24,33 +24,33 @@ export async function editEquityUser(app: FastifyInstance){
                 }), 
                 body: z.object({
                     nome: z.string().nonempty().nullish(),
-                    valor_aquisicao: z.coerce.number().nullish(),
+                    valor_aquisicao: z.coerce.number(),
                     valor_mercado: z.coerce.number().nullish()
                 }),
-                response: {
-                    201: z.object({
-                        patrimonio: z.object({
-                            patrimonio: z.object({
-                                nome: z.string(),
-                                valor_aquisicao: z.any(),  // Agora, usaremos Decimal aqui
-                            }),
-                            usuario_info: z.object({
-                                usuario: z.object({
-                                    nome: z.string(),
-                                    cpf: z.string(),
-                                }),
-                                email: z.string(),
-                            }),
-                            id: z.number(),
-                            id_ativo: z.boolean(),
-                            dthr_cadastro: z.date(),
-                            id_usuario_info_cadastro: z.number(),
-                            id_info_ativo: z.boolean(),
-                            valor_mercado: z.any(),  // Alterado para Decimal
-                            id_patrimonio: z.number(),
-                        }),
-                    }),
-                }
+                // response: {
+                //     201: z.object({
+                //         patrimonio: z.object({
+                //             patrimonio: z.object({
+                //                 nome: z.string(),
+                //                 valor_aquisicao: z.any(),  // Agora, usaremos Decimal aqui
+                //             }),
+                //             usuario_info: z.object({
+                //                 usuario: z.object({
+                //                     nome: z.string(),
+                //                     cpf: z.string(),
+                //                 }),
+                //                 email: z.string(),
+                //             }),
+                //             id: z.number(),
+                //             id_ativo: z.boolean(),
+                //             dthr_cadastro: z.date(),
+                //             id_usuario_info_cadastro: z.number(),
+                //             id_info_ativo: z.boolean(),
+                //             valor_mercado: z.any(),  // Alterado para Decimal
+                //             id_patrimonio: z.number(),
+                //         }),
+                //     }),
+                // }
             }
         },
         async(request, reply) => {
@@ -71,17 +71,19 @@ export async function editEquityUser(app: FastifyInstance){
 
             const data : Data ={}
 
-            if(nome){
-                data.nome = nome
-            }
+            // if(nome){
+            //     data.nome = nome
+            // }
 
-            if(valor_aquisicao){
-                data.valor_aquisicao = valor_aquisicao
-            }
+            // if(valor_aquisicao){
+            //     data.valor_aquisicao = valor_aquisicao
+            // }
 
             if(valor_mercado){
                 data.valor_mercado = valor_mercado
             }
+
+            
 
             const patrimonios = await prisma.patrimonio_info.update({
                 include: {
@@ -113,11 +115,48 @@ export async function editEquityUser(app: FastifyInstance){
                 throw new BadRequestError('Patrimônios não encontrados')
             }
 
+            if(nome){
+                await prisma.patrimonio.update({
+                    where: {
+                        id: patrimonios.id_patrimonio
+                    },
+                    data:{
+                        nome: nome,
+                        valor_aquisicao
+                    }
+                })
+            }
+
+
+            const aaaa = await prisma.patrimonio_info.findUnique({
+                include: {
+                    patrimonio: {
+                        select:{
+                            nome: true,
+                            valor_aquisicao: true
+                        }
+                    },
+                    usuario_info: {
+                        select: {
+                            email: true,
+                            usuario: {
+                                select:{
+                                    cpf: true,
+                                    nome: true
+                                }
+                            }
+                        }
+                    }
+                },
+                where:{
+                    id: patrimonios.id
+                }
+            })
 
             
 
             return reply.status(200).send({
-                patrimonio: patrimonios
+                patrimonio: aaaa
             })
 
         }
