@@ -72,11 +72,11 @@ FinLife é uma plataforma web projetada para simplificar o controle de finanças
 - **Diagrama de Classes**  
   [Lucidchart – Class Diagram](https://lucid.app/…)  
 - **Protótipo de Interface**  
-  [Figma – FinLife UI]([https://www.figma.com/…](https://www.figma.com/design/CeBSBMO7GZ3Dy7tO3JltBe/FinLife?node-id=0-1&t=70AvK61Lo0IRvH0F-1))  
+  [Figma – FinLife UI](https://www.figma.com/design/CeBSBMO7GZ3Dy7tO3JltBe/FinLife?node-id=0-1&t=70AvK61Lo0IRvH0F-1)  
 - **Matriz de Rastreabilidade**  
-  [Google Sheets – Traceability Matrix]([https://docs.google.com/…](https://docs.google.com/spreadsheets/d/1CDMzlwXZCNnG7dz8DZwCC_IXwZ0mjjfsBBgIlziMgJY/edit?usp=sharing))  
+  [Google Sheets](https://docs.google.com/spreadsheets/d/1CDMzlwXZCNnG7dz8DZwCC_IXwZ0mjjfsBBgIlziMgJY/edit?usp=sharing) 
 - **Regras de Negócio**  
-  [Google Docs – Business Rules]([https://docs.google.com/…](https://docs.google.com/document/d/1OOxGUkHQ4Y-eeu99FjhLJdpIc7QMqEL3HWRGNNtck40/edit?usp=sharing))  
+  [Google Docs](https://docs.google.com/document/d/1OOxGUkHQ4Y-eeu99FjhLJdpIc7QMqEL3HWRGNNtck40/edit?usp=sharing)
 
 ## Conclusão
 
